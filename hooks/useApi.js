@@ -27,21 +27,10 @@ export function useApi() {
             })
     }
 
-    const getData = async (request, setFunc) => {
-        try {
-            let response = await fetch(request);
-            let json = await response.json();
-            setData(data + json);
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
     const getNextCharacters = () => {
-        if (data.info.next==null){
+        if (data.info.next === null)
             return 1;
-        }
+    
         return fetch(data.info.next)
             .then((response) => response.json())
             .then((json) => {
@@ -56,44 +45,9 @@ export function useApi() {
                 console.log(error);
             })
     }
-    const deleteDuplcateJsonObjects = (datos) => {
-        var temp=[ ];
-        data=data.filter((item)=>{
-            if(!temp.includes(item.userid)){
-                temp.push(item.userid)
-                return true;
-            }
-        })
-        return temp;
-    }
 
-    const getFilteredCharacters = (param) => {
-        var parametros =  JSON.parse(param);
-        var request;
-        console.log(parametros);
-        if (parametros.filterText == "name"){
-            request = `https://rickandmortyapi.com/api/character/?name=${parametros.text}&status=${parametros.status}&gender=${parametros.gender}`;
-        }else if (parametros.filterText == "type"){
-            request = `https://rickandmortyapi.com/api/character/?type=${parametros.text}&status=${parametros.status}&gender=${parametros.gender}`;
-        }else if(parametros.filterText == "species"){
-            request = `https://rickandmortyapi.com/api/character/?species=${parametros.text}&status=${parametros.status}&gender=${parametros.gender}`;
-        }
-        console.log(request);
-        return fetch(request)
-            .then((response) => response.json())
-            .then((json) => {
-                setData(json);
-                console.log(json);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        //const datosConcatenados = type.concat(name.concat(species));
-        //setData(deleteDuplcateJsonObjects(datosConcatenados));
-    }
-
-    const getEpisode = (episodeURL) => {
-        return fetch(episodeURL)
+    const getFilteredCharacters = (parametros) => {
+        return fetch(`https://rickandmortyapi.com/api/character/?${parametros.input}&status=${parametros.status}&gender=${parametros.gender}`)
             .then((response) => response.json())
             .then((json) => {
                 setData(json);
@@ -103,5 +57,5 @@ export function useApi() {
             })
     }
 
-    return { data, getCharactersFromApi, getNextCharacters, getEpisode, getFilteredCharacters };
+    return { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters };
 }

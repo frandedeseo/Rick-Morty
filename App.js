@@ -1,10 +1,11 @@
 // React
-import { StatusBar, View, Image, TouchableOpacity, Modal } from 'react-native';
+import { StatusBar, View, Modal } from 'react-native';
 import { useState, useEffect } from 'react';
 
 // Components
-import Character from './components/Character';
 import CharacterList from './components/CharacterList';
+import Character from './components/Character';
+import Topbar from './components/Topbar';
 
 // Hooks
 import { useApi } from './hooks/useApi';
@@ -38,7 +39,7 @@ export default function App() {
         <View style={Styles.container}>
             <StatusBar />
 
-            <Filter getFilteredCharacters = {getFilteredCharacters} />
+            <Topbar getFilteredCharacters = {getFilteredCharacters} />
 
             <CharacterList
                 data={data.results}
