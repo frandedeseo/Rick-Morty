@@ -39,6 +39,9 @@ export function useApi() {
     }
 
     const getNextCharacters = () => {
+        if (data.info.next==null){
+            return 1;
+        }
         return fetch(data.info.next)
             .then((response) => response.json())
             .then((json) => {

@@ -1,7 +1,6 @@
 // React
-import {Text, View, TextInput, Button, TouchableOpacity, Image } from 'react-native';
+import {Text, View, TextInput, Button, TouchableOpacity, Image, Switch } from 'react-native';
 
-import {Picker} from '@react-native-picker/picker';
 //import {Picker} from 'react-native-picker';
 import { useState } from 'react';
 
@@ -14,12 +13,17 @@ export default function Filter({ getFilteredCharacters }) {
     const [selectedStatus, setSelectedStatus] = useState("");
     const [selectedGender, setSelectedGender] = useState("");
     const [visibility, setVisibility] = useState(false);
+    const [readyForm, setReadyForm] = useState(false);
     const sendForm = () => {
+        setVisibility(false);
         getFilteredCharacters(JSON.stringify({text: text, filterText: filterText, status: selectedStatus, gender: selectedGender}));
     }
-    const displayFilter = () => {
-        console.log(visibility);
-        setVisibility(true);
+    const checkIfFormSendable = () => {
+        if (text!="" || selectedStatus!="" || selectedGender!=""){
+            setReadyForm(true);
+        }else{
+            setReadyForm(false);
+        }
     }
 
     const displayMoreFilter = () => {
@@ -48,23 +52,62 @@ export default function Filter({ getFilteredCharacters }) {
                 <Image style = {Styles.bannerImage} source = {require('../assets/banner.png')} />
                 {visibility && (
                     <>
-                    <Picker
-                        selectedValue={filterText}
-                        onValueChange={(itemValue) => setFilterText(itemValue)}
-                        mode="dropdown"
-                        style={Styles.textPicker}
-                    >
-                        <Picker.Item label="Name" value="name" />
-                        <Picker.Item label="Type" value="type" />
-                        <Picker.Item label="Species" value="species" />
-                    </Picker>
+                    <Text style={Styles.tx1}>Name</Text>
+                    <Switch 
+                        style={Styles.sw1}
+                        trackColor={{ false: "#767577", true: "#81b0ff" }}
+                        thumbColor={filterText=='name' ? "#f5dd4b" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={()=> {
+                            if (filterText=="name"){
+                                setFilterText("");
+                            }else{
+                                setFilterText("name");
+                            }
+                            checkIfFormSendable(); 
+                        }}
+                        value={filterText=='name'}
+                    />
+                    <Text style={Styles.tx2}>Type</Text>
+                    <Switch
+                        style={Styles.sw2}
+                        trackColor={{ false: "#767577", true: "#81b0ff" }}
+                        thumbColor={filterText=='type' ? "#f5dd4b" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={()=> {
+                            if (filterText=="type"){
+                                setFilterText("");
+                            }else{
+                                setFilterText("type");
+                            } 
+                            checkIfFormSendable(); 
+                        }}
+                        value={filterText=='type'}
+                    />
+                    <Text style={Styles.tx3}>Species</Text>
+                    <Switch
+                        style={Styles.sw3}
+                        trackColor={{ false: "#767577", true: "#81b0ff" }}
+                        thumbColor={filterText=='species' ? "#f5dd4b" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={()=> {
+                            if (filterText=='species'){
+                                setFilterText("");
+                            }else{
+                                setFilterText("species");
+                            } 
+                            checkIfFormSendable(); 
+                        }}
+                        value={filterText=='species'}
+                    />
 
                     <TextInput 
                         style ={Styles.input} 
                         placeholder = "TextFilter" 
-                        onChangeText = {setText} 
                         value = {text}
-                        />
+                        onChangeText = {setText}
+                        onSubmitEditing = {checkIfFormSendable} 
+                    />
 
                     <TouchableOpacity style = {Styles.moreActionsButton} onPress={displayMoreFilter}>
                         <Image style = {{ width: 30, height: 20,borderBottomRightRadius: 8, borderBottomLeftRadius: 8}} source = {require('../assets/moreIcon.png')} />
@@ -72,9 +115,16 @@ export default function Filter({ getFilteredCharacters }) {
                     </>
                 )}
 
+                {(!readyForm || !visibility) && (
                 <TouchableOpacity style = {Styles.backButton} onPress={() => setVisibility(true)}>
                     <Image style = {{ width: 25, height: 20}} source = {require('../assets/searchIcon.png')} />
                 </TouchableOpacity>
+                )}
+                {readyForm && visibility && (
+                <TouchableOpacity style = {Styles.backButton} onPress={sendForm}>
+                    <Image style = {{ width: 25, height: 20}} source = {require('../assets/botonEnviar.png')} />
+                </TouchableOpacity>
+                )}
                 {/*
                 <Picker
                     selectedValue={selectedStatus}

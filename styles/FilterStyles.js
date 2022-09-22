@@ -23,9 +23,7 @@ export const Styles = StyleSheet.create({
       fontSize: 10,
     },
     textPicker: {
-        marginVertical: 0,
         width: 100,
-        padding: 0,
         borderWidth: 1,
         borderColor: "red",
       position: 'absolute',
@@ -46,7 +44,8 @@ export const Styles = StyleSheet.create({
         alignSelf: 'center',
         width: 135, 
         height: 35,
-        marginLeft: 115
+        marginLeft: 115,
+        marginTop: 2,
     },
 
     bannerText: {
@@ -65,4 +64,35 @@ export const Styles = StyleSheet.create({
         left: 40,
         zIndex: 1000
     },
+    sw1: {
+        position: 'absolute',
+        top: 5,
+        left: 0,
+    },
+    sw2: {
+        position: 'absolute',
+        top: 5,
+        left: 40,
+    },
+    sw3: {
+        position: 'absolute',
+        top: 5,
+        left: 76,
+    },
+    tx1: {
+        position: 'absolute',
+        top: 2,
+        left: 5,
+    },
+    tx2: {
+        position: 'absolute',
+        top: 2,
+        left: 45,
+    },
+    tx3: {
+        position: 'absolute',
+        top: 2,
+        left: 80,
+    }
+
 });
