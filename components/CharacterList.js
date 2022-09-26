@@ -8,10 +8,10 @@ import { useState } from 'react';
 import { Styles } from '../styles/CharacterListStyles';
 
 export default function CharacterList({ data, handlePress, handleNextCharacters }) {
-    const [dataIsEmpty, setDataIsEmpty] = useState(JSON.stringify(data)==JSON.stringify({"error": "There is nothing here"}));
+    //const [dataIsEmpty, setDataIsEmpty] = useState(JSON.stringify(data)==JSON.stringify({"error": "There is nothing here"}));
     return (
         <View style = {Styles.container}>
-            {!dataIsEmpty && (
+            {data && (
             <FlatList 
                 data = {data} 
                 onEndReachedThreshold = {0.5}
@@ -21,9 +21,11 @@ export default function CharacterList({ data, handlePress, handleNextCharacters 
                 renderItem = {({ item }) => <CharacterSummary item = {item} handlePress = {handlePress} />}
             />
             )}
-            {dataIsEmpty && (
-                
-                <Image style = {Styles.img1} source = {require('../assets/moreIcon.png')} />
+            {!data && (
+                <View style = {Styles.noResultados}>
+                    <Image style = {Styles.imgMortyEnojado} source = {require('../assets/mortyEnojado.png')} />
+                    <Image style = {Styles.imgNoResultados} source = {require('../assets/noResultados.jpg')} />
+                </View>
                 
             )}
         </View>

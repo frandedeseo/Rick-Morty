@@ -50,7 +50,11 @@ export function useApi() {
         return fetch(`https://rickandmortyapi.com/api/character/?${parametros.input}&status=${parametros.status}&gender=${parametros.gender}`)
             .then((response) => response.json())
             .then((json) => {
-                setData(json);
+                if (JSON.stringify(data)==JSON.stringify({"error": "There is nothing here"})){
+                    setData(false);
+                }else{
+                    setData(json);
+                }
             })
             .catch((error) => {
                 console.log(error);

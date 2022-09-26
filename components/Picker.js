@@ -1,11 +1,11 @@
 // React
-import { View, TextInput, TouchableOpacity, Image, Text } from 'react-native';
+import { View, TouchableOpacity, Image, Text } from 'react-native';
 import { useState } from 'react';
 
 // Styles
 import { Styles } from '../styles/PickerStyles';
 
-export default function Picker({ options, filterOptions, setFilterOptions }) {
+export default function Picker({ style, options, filterOptions, setFilterOptions }) {
     const [optionsVisibility, setOptionsVisibility] = useState(false);
 
     const handleOptionPicker = (option) => {
@@ -14,19 +14,19 @@ export default function Picker({ options, filterOptions, setFilterOptions }) {
     }
 
     return (
-        <View style = {Styles.filterOptions}>
+        <View style = {[style, Styles.filterOptions]}>
             <View style = {Styles.row}>
-                <Text> {filterOptions} </Text>
+                <Text style= {Styles.text}> {filterOptions} </Text>
 
-                <TouchableOpacity onPress = {() => setOptionsVisibility(prevVisibility => !prevVisibility)}>
-                    <Image style = {{ width: 25, height: 20 }} source = {require('../assets/moreIcon.png')} />
-                </TouchableOpacity>
+                <TouchableOpacity style = {Styles.botonDesplegable} onPress = {() => setOptionsVisibility(prevVisibility => !prevVisibility)}>
+                    <Image style = {Styles.moreIcon} source = {require('../assets/moreIcon.png')} />
+                </TouchableOpacity> 
             </View>
 
             {optionsVisibility && (
                 <View style = {Styles.optionsBox}>
                     {options.map(option => (
-                        <TouchableOpacity key = {option} onPress = {() => handleOptionPicker(option)}><Text>{option}</Text></TouchableOpacity>
+                        <TouchableOpacity key = {option} onPress = {() => handleOptionPicker(option)}><Text style = {Styles.opciones}>{option}</Text></TouchableOpacity>
                     ))}
                 </View>
             )}

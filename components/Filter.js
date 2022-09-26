@@ -11,20 +11,20 @@ import { Styles } from '../styles/FilterStyles';
 export default function Filter({ filterVisibility, setFilterVisibility, getFilteredCharacters }) {
     const [textInput, setTextInput] = useState('');
     const [inputOption, setInputOption] = useState('name');
-    const [genderOption, setGenderOption] = useState('');
-    const [statusOption, setStatusOption] = useState('')
+    const [genderOption, setGenderOption] = useState('None');
+    const [statusOption, setStatusOption] = useState('None');
     const [moreOptionsVisibility, setMoreOptionsVisibility] = useState(false);
 
     const handleSubmit = () => {
-        getFilteredCharacters({ input: inputOption + '=' + textInput, gender: genderOption, status: statusOption })
+        getFilteredCharacters({ input: inputOption + '=' + textInput, gender: genderOption == 'None' ? '' : genderOption, status: statusOption == 'None' ? '' : statusOption })
         setFilterVisibility(false);
     }
 
     const handleReset = () => {
-        setTextInput('')
+        setTextInput('');
         setInputOption('name');
-        setGenderOption('');
-        setStatusOption('');
+        setGenderOption('None');
+        setStatusOption('None');
     }
 
     const handleCancel = () => {
@@ -34,13 +34,13 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
 
     return (
         <>
-        <View style = {Styles.row}>
+        
             {filterVisibility && (
-                <View style = {Styles.filter}>
-                    <TouchableOpacity onPress = {() => setMoreOptionsVisibility(true)}>
-                        <Image style = {{ width: 25, height: 20}} source = {require('../assets/plusIcon.png')} />
+                <View style = {Styles.row}>
+                    <TouchableOpacity style = {Styles.plusButton} onPress = {() => setMoreOptionsVisibility(true)}>
+                        <Image style = {Styles.plusIcon} source = {require('../assets/plusIcon.png')} />
                     </TouchableOpacity>
-
+                    <Picker style = {Styles.filterText} options = {['name', 'species', 'type']} filterOptions = {inputOption} setFilterOptions = {setInputOption} />
                     <TextInput 
                         style ={Styles.input} 
                         value = {textInput}
@@ -49,37 +49,39 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
                     />
 
                     <TouchableOpacity onPress = {handleSubmit} style = {Styles.sendButton}>
-                        <Image style = {{ width: 25, height: 20}} source = {require('../assets/botonEnviar.png')} />
+                        <Image style = {Styles.sendIcon} source = {require('../assets/botonEnviar.png')} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress = {handleCancel} style = {Styles.sendButton}>
-                        <Image style = {{ width: 25, height: 20}} source = {require('../assets/cancelIcon.png')} />
+                    <TouchableOpacity onPress = {handleCancel} style = {Styles.cancelButton}>
+                        <Image style = {Styles.cancelIcon} source = {require('../assets/cancelIcon.png')} />
                     </TouchableOpacity>
                 </View>
             )}
-
-            {!filterVisibility && (
+            
+        {/*!filterVisibility && (
                 <TouchableOpacity onPress = {() => setFilterVisibility(true)} style = {Styles.searchButton}>
                     <Image style = {{ width: 25, height: 20}} source = {require('../assets/searchIcon.png')} />
                 </TouchableOpacity>
-            )}
-        </View>
+        )*/}
 
         <Modal transparent visible = {moreOptionsVisibility} animationType = "slide">
             <View style = {Styles.modalView}>
-                <Picker options = {['name', 'species', 'type']} filterOptions = {inputOption} setFilterOptions = {setInputOption} />
-                <Picker options = {['male', 'female', 'unknown', 'genderless']} filterOptions = {genderOption} setFilterOptions = {setGenderOption} />
-                <Picker options = {['alive', 'dead', 'unknown']} filterOptions = {statusOption} setFilterOptions = {setStatusOption} /> 
+                <View style = {Styles.pickers}>
+                    <Picker options = {['None','Male', 'Female', 'Unknown', 'Genderless']} style={Styles.filterGender} filterOptions = {genderOption} setFilterOptions = {setGenderOption} />
+                    <Picker options = {['None','Alive', 'Dead', 'Unknown']} style={Styles.filterStatus} filterOptions = {statusOption} setFilterOptions = {setStatusOption} /> 
+                </View>
 
-                <TouchableOpacity style = {Styles.button} onPress = {handleReset}>
-                    <Text style = {Styles.buttonText}> Reset </Text>
-                </TouchableOpacity>
 
                 <TouchableOpacity style = {Styles.button} onPress = {() => setMoreOptionsVisibility(false)}>
-                    <Text style = {Styles.buttonText}> Close </Text>
+                    <Text style = {Styles.buttonText}> Done </Text>
                 </TouchableOpacity>
             </View>
         </Modal>
         </>
     )
 }
+/*
+                <TouchableOpacity style = {Styles.button} onPress = {handleReset}>
+                    <Text style = {Styles.buttonText}> Reset </Text>
+                </TouchableOpacity>
+                */

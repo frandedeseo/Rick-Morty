@@ -12,12 +12,10 @@ import { useApi } from './hooks/useApi';
 
 // Styles
 import { Styles } from './AppStyles';
-import Filter from './components/Filter';
 
 export default function App() {
     const [character, setCharacter] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
-
     const { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
 
     useEffect(() => {

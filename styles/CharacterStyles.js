@@ -4,14 +4,16 @@ import { StyleSheet } from 'react-native';
 export const Styles = StyleSheet.create({
     modalView: {
         backgroundColor: "#3c3e44",
-        marginHorizontal: 45,
-        marginTop: 30,
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginHorizontal: '14%',
+        marginTop: '5%',
         borderRadius: 20,
     },
 
     image: {
-        width: 270,
-        height: 150,
+        width: '100%',
+        height: '35%',
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
     },
@@ -63,7 +65,6 @@ export const Styles = StyleSheet.create({
     button: {
         backgroundColor: '#abd5ec',
         height: 35,
-        marginTop: 10,
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomLeftRadius: 10,

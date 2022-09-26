@@ -10,7 +10,7 @@ export const Styles = StyleSheet.create({
 
     image: {
         width: 110, 
-        height: 110, 
+        height: '100%', 
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10
     },
@@ -23,7 +23,8 @@ export const Styles = StyleSheet.create({
     },
 
     row: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width: '100%',
     },
 
     info: {
@@ -43,9 +44,14 @@ export const Styles = StyleSheet.create({
         fontSize: 20
     },
 
-    text: {
+    text1: {
         color: '#f5f5f5',
-        fontSize: 15
+        fontSize: 15,
+    },
+    text2: {
+        color: '#f5f5f5',
+        fontSize: 15,
+        width: 150,
     },
 
     type: {

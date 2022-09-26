@@ -3,20 +3,30 @@ import { StyleSheet } from 'react-native';
 
 export const Styles = StyleSheet.create({
     row: {
-
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 40,
     },
     
     banner: {
         backgroundColor: 'white',
-        justifyContent: 'center',
         height: 40,
     },
 
     bannerImage: {
-        alignSelf: 'center',
-        width: 135, 
+        width: '36%',
         height: 35,
-        marginLeft: 115,
-        marginTop: 2,
-    }
+        alignSelf: 'center',
+    },
+    searchButton: {
+        position: 'absolute',
+        left: '86%',
+        top: 6,
+    },
+    searchIcon: {
+        width: 32, 
+        height: 32,
+    },
 });

@@ -13,10 +13,19 @@ export default function Topbar({ getFilteredCharacters }) {
 
     return (
         <View style = {Styles.banner}>
-            <View style = {Styles.row}>
-                {!filterVisibility && <Image style = {Styles.bannerImage} source = {require('../assets/banner.png')} />}
-                <Filter filterVisibility = {filterVisibility} setFilterVisibility = {setFilterVisibility} getFilteredCharacters = {getFilteredCharacters} />
-            </View>
+            
+                {!filterVisibility && (
+                    <View style = {Styles.row}>
+                        <Image style = {Styles.bannerImage} source = {require('../assets/banner.png')} />
+                        <TouchableOpacity onPress = {() => setFilterVisibility(true)} style = {Styles.searchButton}>
+                            <Image style = {Styles.searchIcon} source = {require('../assets/searchIcon.jpg')} />
+                        </TouchableOpacity>
+                    </View>
+                )}
+                {filterVisibility && (
+                    <Filter filterVisibility = {filterVisibility} setFilterVisibility = {setFilterVisibility} getFilteredCharacters = {getFilteredCharacters} />
+                )}    
+            
         </View>
     )
 }
