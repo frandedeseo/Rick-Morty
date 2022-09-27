@@ -35,9 +35,8 @@ export default function App() {
     return (
         <>
         <View style={Styles.container}>
-            <SafeAreaView>
-                <StatusBar  barStyle="light-content"/>
-            </SafeAreaView>
+            <SafeAreaView />
+            <StatusBar  barStyle="light-content"/>
             
             <Topbar getFilteredCharacters = {getFilteredCharacters} />
             
