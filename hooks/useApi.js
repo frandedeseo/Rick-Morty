@@ -2,20 +2,8 @@
 import { useState } from 'react';
 
 export function useApi() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
-    /*
-    const [name, setName] = useState(null);
-    const [species, setSpecies] = useState(null);
-    const [type, setType] = useState(null);
-    const [alive, setAlive] = useState(null);
-    const [dead, setDead] = useState(null);
-    const [unknownStatus, setUnknownStatus] = useState(null);
-    const [female, setFemale] = useState(null);
-    const [male, setMale] = useState(null);
-    const [genderless, setGenderless] = useState(null);
-    const [unknownGender, setUnknownGender] = useState(null);
-*/
     const getCharactersFromApi = () => {
         return fetch('https://rickandmortyapi.com/api/character')
             .then((response) => response.json())
@@ -28,9 +16,6 @@ export function useApi() {
     }
 
     const getNextCharacters = () => {
-        if (data.info.next === null)
-            return 1;
-    
         return fetch(data.info.next)
             .then((response) => response.json())
             .then((json) => {
@@ -42,7 +27,9 @@ export function useApi() {
                 });
             })
             .catch((error) => {
-                console.log(error);
+                if (data.info.next != null){
+                    console.log(error);
+                }
             })
     }
 
@@ -50,14 +37,10 @@ export function useApi() {
         return fetch(`https://rickandmortyapi.com/api/character/?${parametros.input}&status=${parametros.status}&gender=${parametros.gender}`)
             .then((response) => response.json())
             .then((json) => {
-                if (JSON.stringify(data)==JSON.stringify({"error": "There is nothing here"})){
-                    setData(false);
-                }else{
-                    setData(json);
-                }
+                setData(json);
             })
             .catch((error) => {
-                console.log(error);
+                setData({results: []});
             })
     }
 

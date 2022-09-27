@@ -9,6 +9,7 @@ export const Styles = StyleSheet.create({
         backgroundColor: 'white',
         height: 36,
         width: '55%',
+        paddingLeft: '2%',
         fontSize: 18,
         alignSelf: 'center',
         marginLeft: 'auto',
@@ -70,18 +71,19 @@ export const Styles = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: 'rgb(45,201,2)',
+        backgroundColor: '#abd5ec',
         height: 35,
-        marginTop: '46%',
+        marginTop: '20%',
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10
+        borderBottomRightRadius: 10,
+        zIndex: -1,
     },
 
     modalView: {
         backgroundColor: "rgb(235,235,235)",
-        height: '32%',
+        height: '21%',
         marginHorizontal: '16%',
         marginTop: '13%',
         borderRadius: 20,

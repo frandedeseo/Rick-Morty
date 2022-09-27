@@ -1,5 +1,5 @@
 // React
-import { StatusBar, View, Modal } from 'react-native';
+import { StatusBar, View, Modal, SafeAreaView } from 'react-native';
 import { useState, useEffect } from 'react';
 
 // Components
@@ -35,15 +35,18 @@ export default function App() {
     return (
         <>
         <View style={Styles.container}>
-            <StatusBar />
-
+            <SafeAreaView>
+                <StatusBar  barStyle="light-content"/>
+            </SafeAreaView>
+            
             <Topbar getFilteredCharacters = {getFilteredCharacters} />
-
-            <CharacterList
+            
+            {data && (<CharacterList
                 data={data.results}
                 handlePress={handlePress}
                 handleNextCharacters={getNextCharacters}
             />
+            )}
 
             <Modal transparent visible = {modalVisible} animationType = "slide">
                 <Character
