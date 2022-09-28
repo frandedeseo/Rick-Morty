@@ -1,68 +1,99 @@
 // React
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
+const {width, height} = Dimensions.get('window');
 
 export const Styles = StyleSheet.create({
-    inputHidden: {
-        display: 'none',
-        backgroundColor: 'red',
-    },
-    submitButton: {
-        height: 10,
-        backgroundColor: "red",
-    },
     input: {
-        position: 'absolute',
-        top: 2,
-        left: '34%',
-        right: '4%',
-        height: 36,
         borderWidth: 1,
-        backgroundColor: 'white'
-    },
-    text: {
-      fontSize: 10,
-    },
-    textPicker: {
-        marginVertical: 0,
-        width: 100,
-        padding: 0,
-        borderWidth: 1,
-        borderColor: "red",
-      position: 'absolute',
-      top: 0,
-      left: 15,
-      zIndex: 1000,
-    },
-    row: {
-        flexDirection: 'row',
-    },
-
-    banner: {
         backgroundColor: 'white',
-        height: 40,
-    },
-
-    bannerImage: {
+        height: 36,
+        width: '55%',
+        paddingLeft: '2%',
+        fontSize: 18,
         alignSelf: 'center',
-        width: 135, 
+        marginLeft: 'auto',
+    },
+
+    plusButton: {
+        alignSelf: 'center',
+    },
+
+    plusIcon: {
+        width: 34, 
+        height: 34,
+    },
+
+    filterText: {
+        width: '24%',
+        alignSelf: 'center',
+    },
+
+    filterStatus: {
+        width: 100,
+        alignSelf: 'center',
+    },
+
+    filterGender: {
+        width: 110,
+        alignSelf: 'center',
+    },
+
+    pickers: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: '5%', 
+    },
+
+    sendButton: {
+        position: 'absolute',
+        left: '82%',
+        top: 8,
+    },
+
+    sendIcon: {
+        width: 25, 
+        height: 25,
+    },
+
+    cancelButton: {
+        alignSelf: 'center',
+        width: '10%',
+    },
+
+    cancelIcon: {
+        width: 25, 
+        height: 25, 
+        marginLeft: '10%',
+    },
+    
+    row: {
+        width: '100%',
+        height: 40,
+        display: 'flex',
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+    },
+
+    button: {
+        backgroundColor: '#abd5ec',
         height: 35,
-        marginLeft: 115
+        marginTop: '20%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        zIndex: -1,
     },
 
-    bannerText: {
-        fontSize: 18
-    },
-
-    backButton: {
-        position: 'absolute',
-        top: 12,
-        left: 312,
-        justifyContent: 'center', 
-    },
-    moreActionsButton: {
-        position: 'absolute',
-        top: 40,
-        left: 40,
-        zIndex: 1000
+    modalView: {
+        backgroundColor: "rgb(235,235,235)",
+        height: '21%',
+        marginHorizontal: '16%',
+        marginTop: '13%',
+        borderRadius: 20,
     },
 });

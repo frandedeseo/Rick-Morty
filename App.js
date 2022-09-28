@@ -1,22 +1,21 @@
 // React
-import { StatusBar, View, Image, TouchableOpacity, Modal } from 'react-native';
+import { StatusBar, View, Modal, SafeAreaView } from 'react-native';
 import { useState, useEffect } from 'react';
 
 // Components
-import Character from './components/Character';
 import CharacterList from './components/CharacterList';
+import Character from './components/Character';
+import Topbar from './components/Topbar';
 
 // Hooks
 import { useApi } from './hooks/useApi';
 
 // Styles
 import { Styles } from './AppStyles';
-import Filter from './components/Filter';
 
 export default function App() {
     const [character, setCharacter] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
-
     const { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
 
     useEffect(() => {
@@ -36,15 +35,17 @@ export default function App() {
     return (
         <>
         <View style={Styles.container}>
-            <StatusBar />
-
-            <Filter getFilteredCharacters = {getFilteredCharacters} />
-
-            <CharacterList
+            <SafeAreaView />
+            <StatusBar  barStyle="light-content"/>
+            
+            <Topbar getFilteredCharacters = {getFilteredCharacters} />
+            
+            {data && (<CharacterList
                 data={data.results}
                 handlePress={handlePress}
                 handleNextCharacters={getNextCharacters}
             />
+            )}
 
             <Modal transparent visible = {modalVisible} animationType = "slide">
                 <Character
