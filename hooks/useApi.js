@@ -40,7 +40,7 @@ export function useApi() {
                 setData(json);
             })
             .catch((error) => {
-                setData({results: []});
+                setData({results: null});
             })
     }
 

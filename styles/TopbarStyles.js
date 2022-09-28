@@ -20,13 +20,15 @@ export const Styles = StyleSheet.create({
         height: 35,
         alignSelf: 'center',
     },
+
     searchButton: {
         position: 'absolute',
         left: '86%',
         top: 6,
     },
+
     searchIcon: {
         width: 32, 
         height: 32,
-    },
+    }
 });

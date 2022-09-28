@@ -1,5 +1,5 @@
 // React
-import {View, TextInput, TouchableOpacity, Image } from 'react-native';
+import {View, TouchableOpacity, Image } from 'react-native';
 import { useState } from 'react';
 
 // Components
@@ -21,6 +21,7 @@ export default function Topbar({ getFilteredCharacters }) {
                         </TouchableOpacity>
                     </View>
                 )}
+                
                 {filterVisibility && (
                     <Filter filterVisibility = {filterVisibility} setFilterVisibility = {setFilterVisibility} getFilteredCharacters = {getFilteredCharacters} />
                 )}  

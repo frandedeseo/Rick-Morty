@@ -33,14 +33,15 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
     }
 
     return (
-        <>
-        
+        <> 
             {filterVisibility && (
                 <View style = {Styles.row}>
                     <TouchableOpacity style = {Styles.plusButton} onPress = {() => setMoreOptionsVisibility(true)}>
                         <Image style = {Styles.plusIcon} source = {require('../assets/plusIcon.png')} />
                     </TouchableOpacity>
+
                     <Picker style = {Styles.filterText} options = {['name', 'species', 'type']} filterOptions = {inputOption} setFilterOptions = {setInputOption} />
+
                     <TextInput 
                         style ={Styles.input} 
                         value = {textInput}
@@ -57,20 +58,13 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
                     </TouchableOpacity>
                 </View>
             )}
-            
-        {/*!filterVisibility && (
-                <TouchableOpacity onPress = {() => setFilterVisibility(true)} style = {Styles.searchButton}>
-                    <Image style = {{ width: 25, height: 20}} source = {require('../assets/searchIcon.png')} />
-                </TouchableOpacity>
-        )*/}
 
         <Modal transparent visible = {moreOptionsVisibility} animationType = "slide">
             <View style = {Styles.modalView}>
                 <View style = {Styles.pickers}>
-                    <Picker options = {['None','Male', 'Female', 'Unknown', 'Genderless']} style={Styles.filterGender} filterOptions = {genderOption} setFilterOptions = {setGenderOption} />
-                    <Picker options = {['None','Alive', 'Dead', 'Unknown']} style={Styles.filterStatus} filterOptions = {statusOption} setFilterOptions = {setStatusOption} /> 
+                    <Picker options = {['None','Male', 'Female', 'Unknown', 'Genderless']} style = {Styles.filterGender} filterOptions = {genderOption} setFilterOptions = {setGenderOption} />
+                    <Picker options = {['None','Alive', 'Dead', 'Unknown']} style = {Styles.filterStatus} filterOptions = {statusOption} setFilterOptions = {setStatusOption} /> 
                 </View>
-
 
                 <TouchableOpacity style = {Styles.button} onPress = {() => setMoreOptionsVisibility(false)}>
                     <Text style = {Styles.buttonText}> Done </Text>
@@ -80,8 +74,3 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
         </>
     )
 }
-/*
-                <TouchableOpacity style = {Styles.button} onPress = {handleReset}>
-                    <Text style = {Styles.buttonText}> Reset </Text>
-                </TouchableOpacity>
-                */

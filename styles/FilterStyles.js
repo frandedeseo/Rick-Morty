@@ -14,9 +14,11 @@ export const Styles = StyleSheet.create({
         alignSelf: 'center',
         marginLeft: 'auto',
     },
+
     plusButton: {
         alignSelf: 'center',
     },
+
     plusIcon: {
         width: 34, 
         height: 34,
@@ -26,14 +28,17 @@ export const Styles = StyleSheet.create({
         width: '24%',
         alignSelf: 'center',
     },
+
     filterStatus: {
         width: 100,
         alignSelf: 'center',
     },
+
     filterGender: {
         width: 110,
         alignSelf: 'center',
     },
+
     pickers: {
         display: 'flex',
         flexDirection: 'row',
@@ -51,15 +56,18 @@ export const Styles = StyleSheet.create({
         width: 25, 
         height: 25,
     },
+
     cancelButton: {
         alignSelf: 'center',
         width: '10%',
     },
+
     cancelIcon: {
         width: 25, 
         height: 25, 
         marginLeft: '10%',
     },
+    
     row: {
         width: '100%',
         height: 40,

@@ -8,13 +8,16 @@ export const Styles = StyleSheet.create({
         height: 24,
         fontSize: 15,
     },
+
     botonDesplegable: {
         marginLeft: 'auto',
     },
+
     moreIcon: {
         width: 30, 
         height: 24,
     },
+
     text: {
         fontSize: 15,
     },
@@ -28,6 +31,7 @@ export const Styles = StyleSheet.create({
     optionBox: {
         backgroundColor: 'white',
     },
+    
     opciones: {
         borderWidth: 1,
         paddingLeft: 5,
