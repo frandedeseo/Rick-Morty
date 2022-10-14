@@ -9,9 +9,11 @@ export const Styles = StyleSheet.create({
         height: 28,
         alignItems: "center",
     },
+
     botonDesplegable: {
         marginLeft: 'auto',
     },
+
     moreIcon: {
         width: 30,
         height: 26,
@@ -29,6 +31,7 @@ export const Styles = StyleSheet.create({
         backgroundColor: "#d9dbda",
         borderRadius: 5,
     },
+    
     opciones: {
         borderWidth: 1,
         borderColor: 'white',
