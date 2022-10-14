@@ -5,33 +5,35 @@ export const Styles = StyleSheet.create({
     row: {
         display: 'flex',
         flexDirection: 'row',
-        height: 24,
         fontSize: 15,
+        height: 28,
+        alignItems: "center",
     },
     botonDesplegable: {
         marginLeft: 'auto',
     },
     moreIcon: {
-        width: 30, 
-        height: 24,
+        width: 30,
+        height: 26,
     },
-    text: {
+    text: { 
         fontSize: 15,
     },
     
     filterOptions: {
-        backgroundColor: 'white',
-        borderWidth: 1,
-        height: 26
+        backgroundColor: "#d9dbda",
+        height: 28
     },
 
     optionBox: {
-        backgroundColor: 'white',
+        backgroundColor: "#d9dbda",
+        borderRadius: 5,
     },
     opciones: {
         borderWidth: 1,
+        borderColor: 'white',
         paddingLeft: 5,
         fontSize: 15,
-        backgroundColor: 'white',
+        backgroundColor: "#d9dbda",
     }
 });

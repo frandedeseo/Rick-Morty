@@ -1,12 +1,13 @@
 // React
-import { View, TextInput, TouchableOpacity, Image, Modal, Text } from 'react-native';
-import { useState } from 'react';
+import { View, TextInput, TouchableOpacity, Image, Modal, Text, Animated } from 'react-native';
+import { useState, useRef } from 'react';
 
 // Components
 import Picker from './Picker';
 
 // Styles
 import { Styles } from '../styles/FilterStyles';
+import SearchBar from './SearchBar';
  
 export default function Filter({ filterVisibility, setFilterVisibility, getFilteredCharacters }) {
     const [textInput, setTextInput] = useState('');
@@ -14,6 +15,7 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
     const [genderOption, setGenderOption] = useState('None');
     const [statusOption, setStatusOption] = useState('None');
     const [moreOptionsVisibility, setMoreOptionsVisibility] = useState(false);
+    const anim = useRef(new Animated.Value(0)).current;
 
     const handleSubmit = () => {
         getFilteredCharacters({ input: inputOption + '=' + textInput, gender: genderOption == 'None' ? '' : genderOption, status: statusOption == 'None' ? '' : statusOption })
@@ -29,57 +31,84 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
 
     const handleCancel = () => {
         handleReset();
-        handleSubmit();
+        getFilteredCharacters({ input: 'name=', gender: '', status: '' })
+        setFilterVisibility(false);
     }
+    const aparecer = () => {
+        setMoreOptionsVisibility(true);
+        Animated.timing(anim, {
+          toValue: 40,
+          duration: 500,
+          useNativeDriver: false
+        }).start();
+    };
+    
+    const desaparecer = () => {
+        setMoreOptionsVisibility(false);
+        Animated.timing(anim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: false
+        }).start();
+    };
 
     return (
         <>
-        
             {filterVisibility && (
+            <>
                 <View style = {Styles.row}>
-                    <TouchableOpacity style = {Styles.plusButton} onPress = {() => setMoreOptionsVisibility(true)}>
-                        <Image style = {Styles.plusIcon} source = {require('../assets/plusIcon.png')} />
-                    </TouchableOpacity>
+                    {!moreOptionsVisibility && (
+                        <TouchableOpacity style = {Styles.plusButton} onPress = {aparecer} >
+                            <Image style = {Styles.plusIcon} source = {require('../assets/plusIcon.png')} />
+                        </TouchableOpacity>
+                    )}
+                    {moreOptionsVisibility && (
+                        <TouchableOpacity style = {Styles.plusButton} onPress = {desaparecer} >
+                            <Image style = {Styles.substractIcon} source = {require('../assets/substractIcon.png')} />
+                        </TouchableOpacity>
+                    )}
                     <Picker style = {Styles.filterText} options = {['name', 'species', 'type']} filterOptions = {inputOption} setFilterOptions = {setInputOption} />
-                    <TextInput 
+                    <SearchBar textInput={textInput}  setTextInput={setTextInput} handleCancel={handleCancel}/> 
+                    {/* <TextInput 
                         style ={Styles.input} 
                         value = {textInput}
                         onChangeText = {setTextInput} 
                         placeholder = "TextFilter"
-                    />
-
-                    <TouchableOpacity onPress = {handleSubmit} style = {Styles.sendButton}>
-                        <Image style = {Styles.sendIcon} source = {require('../assets/botonEnviar.png')} />
-                    </TouchableOpacity>
-
+                    /> 
                     <TouchableOpacity onPress = {handleCancel} style = {Styles.cancelButton}>
                         <Image style = {Styles.cancelIcon} source = {require('../assets/cancelIcon.png')} />
+                    </TouchableOpacity>                    
+                    */
+                    }
+
+                    <TouchableOpacity onPress = {handleSubmit} style = {Styles.sendButton}>
+                        <Image style = {Styles.sendIcon} source = {require('../assets/boton-enviar.png')} />
                     </TouchableOpacity>
+
+
                 </View>
+                <Animated.View style = {[Styles.modalView, {transform: [{translateY: anim}]}]}>
+                    <View style = {Styles.pickers}>
+                        <Picker options = {['None','Male', 'Female', 'Unknown', 'Genderless']} style={Styles.filterGender} filterOptions = {genderOption} setFilterOptions = {setGenderOption} />
+                        <Picker options = {['None','Alive', 'Dead', 'Unknown']} style={Styles.filterStatus} filterOptions = {statusOption} setFilterOptions = {setStatusOption} /> 
+                    </View>
+                </Animated.View>                                   
+            </>
             )}
-            
+        </>
+    )
+}
         {/*!filterVisibility && (
                 <TouchableOpacity onPress = {() => setFilterVisibility(true)} style = {Styles.searchButton}>
                     <Image style = {{ width: 25, height: 20}} source = {require('../assets/searchIcon.png')} />
                 </TouchableOpacity>
-        )*/}
-
-        <Modal transparent visible = {moreOptionsVisibility} animationType = "slide">
-            <View style = {Styles.modalView}>
-                <View style = {Styles.pickers}>
-                    <Picker options = {['None','Male', 'Female', 'Unknown', 'Genderless']} style={Styles.filterGender} filterOptions = {genderOption} setFilterOptions = {setGenderOption} />
-                    <Picker options = {['None','Alive', 'Dead', 'Unknown']} style={Styles.filterStatus} filterOptions = {statusOption} setFilterOptions = {setStatusOption} /> 
-                </View>
-
-
-                <TouchableOpacity style = {Styles.button} onPress = {() => setMoreOptionsVisibility(false)}>
+                                <TouchableOpacity style = {Styles.button} onPress = {() => setMoreOptionsVisibility(false)}>
                     <Text style = {Styles.buttonText}> Done </Text>
                 </TouchableOpacity>
-            </View>
-        </Modal>
-        </>
-    )
-}
+        )*/}
+
+
+
 /*
                 <TouchableOpacity style = {Styles.button} onPress = {handleReset}>
                     <Text style = {Styles.buttonText}> Reset </Text>

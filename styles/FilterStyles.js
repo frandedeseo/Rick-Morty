@@ -1,9 +1,8 @@
 // React
 import { StyleSheet } from 'react-native';
-import { Dimensions } from 'react-native';
-const {width, height} = Dimensions.get('window');
 
 export const Styles = StyleSheet.create({
+    /*
     input: {
         borderWidth: 1,
         backgroundColor: 'white',
@@ -13,43 +12,55 @@ export const Styles = StyleSheet.create({
         fontSize: 18,
         alignSelf: 'center',
         marginLeft: 'auto',
-    },
+    }, */
     plusButton: {
         alignSelf: 'center',
+        marginLeft: '6%',
     },
     plusIcon: {
         width: 34, 
         height: 34,
     },
+    substractIcon: {
+        width: 24, 
+        height: 24,
+        margin: 5,
+    },
 
     filterText: {
         width: '24%',
+        borderRightColor: 'black',
+        borderRightWidth: 1,
         alignSelf: 'center',
+        borderBottomLeftRadius: 5,
+        borderTopLeftRadius: 5,
     },
     filterStatus: {
         width: 100,
         alignSelf: 'center',
+        borderRadius: 5,
     },
     filterGender: {
         width: 110,
         alignSelf: 'center',
+        borderRadius: 5,
     },
     pickers: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: '5%', 
+        marginTop: '1%',
     },
 
     sendButton: {
         position: 'absolute',
-        left: '82%',
-        top: 8,
+        left: '89%',
+        top: 6,
     },
 
     sendIcon: {
-        width: 25, 
-        height: 25,
+        width: 30, 
+        height: 30,
     },
     cancelButton: {
         alignSelf: 'center',
@@ -67,7 +78,7 @@ export const Styles = StyleSheet.create({
         flexDirection: 'row',
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: "white",
     },
 
     button: {
@@ -82,10 +93,15 @@ export const Styles = StyleSheet.create({
     },
 
     modalView: {
-        backgroundColor: "rgb(235,235,235)",
-        height: '21%',
-        marginHorizontal: '16%',
-        marginTop: '13%',
-        borderRadius: 20,
+        position: 'absolute',
+        borderTopWidth: 2,
+        borderColor: "#d9dbda",
+        left: '2%',
+        zIndex: -1,
+        backgroundColor: "white",
+        height: '100%',
+        width: '96%',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
 });

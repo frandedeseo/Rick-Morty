@@ -11,7 +11,7 @@ export const Styles = StyleSheet.create({
     },
     
     banner: {
-        backgroundColor: 'white',
+        backgroundColor: "white",
         height: 40,
     },
 
@@ -22,7 +22,7 @@ export const Styles = StyleSheet.create({
     },
     searchButton: {
         position: 'absolute',
-        left: '86%',
+        left: '88%',
         top: 6,
     },
     searchIcon: {
