@@ -5,9 +5,9 @@ export const Styles = StyleSheet.create({
     row: {
         display: 'flex',
         flexDirection: 'row',
+        alignItems: "center",
         fontSize: 15,
         height: 28,
-        alignItems: "center",
     },
 
     botonDesplegable: {
@@ -18,7 +18,8 @@ export const Styles = StyleSheet.create({
         width: 30,
         height: 26,
     },
-    text: { 
+
+    text: {
         fontSize: 15,
     },
     
@@ -29,14 +30,16 @@ export const Styles = StyleSheet.create({
 
     optionBox: {
         backgroundColor: "#d9dbda",
-        borderRadius: 5,
+        borderRadius: 10,
     },
     
     opciones: {
         borderWidth: 1,
-        borderColor: 'white',
         paddingLeft: 5,
         fontSize: 15,
+        height: 30,
+        borderColor: 'white',
         backgroundColor: "#d9dbda",
+        textAlignVertical: 'center'
     }
 });

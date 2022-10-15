@@ -26,7 +26,9 @@ export default function Picker({ style, options, filterOptions, setFilterOptions
             {optionsVisibility && (
                 <View style = {Styles.optionsBox}>
                     {options.map(option => (
-                        <TouchableOpacity key = {option} onPress = {() => handleOptionPicker(option)}><Text style = {Styles.opciones}>{option}</Text></TouchableOpacity>
+                        <TouchableOpacity key = {option} onPress = {() => handleOptionPicker(option)}>
+                            <Text style = {Styles.opciones}>{option}</Text>
+                        </TouchableOpacity>
                     ))}
                 </View>
             )}

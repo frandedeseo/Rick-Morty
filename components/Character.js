@@ -15,8 +15,9 @@ export default function Character({ character, handleClose }) {
     return (
         <View style = {Styles.modalView}>
             <Image style = {Styles.image} source = {{ uri: character.image }} />
-    
+
             <View style = {Styles.data}>
+    
                 <Text style = {[Styles.text, Styles.name]}>{character.name}</Text>
 
                 <View style = {Styles.line} />

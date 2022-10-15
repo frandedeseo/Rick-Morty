@@ -62,13 +62,28 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
                             <Image style = {Styles.plusIcon} source = {require('../assets/plusIcon.png')} />
                         </TouchableOpacity>
                     )}
+
                     {moreOptionsVisibility && (
                         <TouchableOpacity style = {Styles.plusButton} onPress = {desaparecer} >
                             <Image style = {Styles.substractIcon} source = {require('../assets/substractIcon.png')} />
                         </TouchableOpacity>
                     )}
-                    <Picker style = {Styles.filterText} options = {['name', 'species', 'type']} filterOptions = {inputOption} setFilterOptions = {setInputOption} />
-                    <SearchBar textInput={textInput}  setTextInput={setTextInput} handleCancel={handleCancel}/> 
+
+                    <Picker 
+                        style = {Styles.filterText} 
+                        options = {['name', 'species', 'type']} 
+                        filterOptions = {inputOption} 
+                        setFilterOptions = {setInputOption} 
+                    />
+
+                    <View style = {Styles.line} />
+
+                    <SearchBar 
+                        textInput = {textInput}  
+                        setTextInput = {setTextInput} 
+                        handleCancel = {handleCancel} 
+                    />
+
                     {/* <TextInput 
                         style ={Styles.input} 
                         value = {textInput}
@@ -87,10 +102,22 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
 
 
                 </View>
+
                 <Animated.View style = {[Styles.modalView, {transform: [{translateY: anim}]}]}>
                     <View style = {Styles.pickers}>
-                        <Picker options = {['None','Male', 'Female', 'Unknown', 'Genderless']} style={Styles.filterGender} filterOptions = {genderOption} setFilterOptions = {setGenderOption} />
-                        <Picker options = {['None','Alive', 'Dead', 'Unknown']} style={Styles.filterStatus} filterOptions = {statusOption} setFilterOptions = {setStatusOption} /> 
+                        <Picker 
+                            options = {['None','Male', 'Female', 'Unknown', 'Genderless']} 
+                            style={Styles.filterGender} 
+                            filterOptions = {genderOption} 
+                            setFilterOptions = {setGenderOption} 
+                        />
+
+                        <Picker 
+                            options = {['None','Alive', 'Dead', 'Unknown']} 
+                            style = {Styles.filterStatus} 
+                            filterOptions = {statusOption} 
+                            setFilterOptions = {setStatusOption} 
+                        /> 
                     </View>
                 </Animated.View>                                   
             </>

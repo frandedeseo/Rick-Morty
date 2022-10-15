@@ -19,19 +19,19 @@ export const Styles = StyleSheet.create({
     },
 
     plusIcon: {
-        width: 34, 
-        height: 34,
+        width: 30, 
+        height: 30,
+        marginTop: 2
     },
+
     substractIcon: {
-        width: 24, 
-        height: 24,
+        width: 20, 
+        height: 20,
         margin: 5,
     },
 
     filterText: {
         width: '24%',
-        borderRightColor: 'black',
-        borderRightWidth: 1,
         alignSelf: 'center',
         borderBottomLeftRadius: 5,
         borderTopLeftRadius: 5,
@@ -103,12 +103,18 @@ export const Styles = StyleSheet.create({
         position: 'absolute',
         borderTopWidth: 2,
         borderColor: "#d9dbda",
-        left: '2%',
         zIndex: -1,
         backgroundColor: "white",
         height: '100%',
-        width: '96%',
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        width: '100%',
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+    },
+
+    line: {
+        borderRightColor: 'black',
+        borderRightWidth: StyleSheet.hairlineWidth,
+        marginBottom: 7,
+        marginTop: 7,
     },
 });
