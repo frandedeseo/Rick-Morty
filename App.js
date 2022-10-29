@@ -1,63 +1,42 @@
 // React
-import { StatusBar, View, Modal, SafeAreaView } from 'react-native';
-import { useState, useEffect } from 'react';
+import { Image } from 'react-native';
 
-// Components
-import CharacterList from './components/CharacterList';
-import Character from './components/Character';
-import Topbar from './components/Topbar';
+// Screens
+import HomeScreen from './screens/HomeScreen';
+import FavoritesScreen from './screens/FavoritesScreen';
 
-// Hooks
-import { useApi } from './hooks/useApi';
+// Tab Navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// Styles
-import { Styles } from './AppStyles';
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-    const [character, setCharacter] = useState({});
-    const [modalVisible, setModalVisible] = useState(false);
-    const { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
-
-    useEffect(() => {
-        getCharactersFromApi();
-    }, [])
-
-    const handlePress = (character) => {
-        setModalVisible(true);
-        setCharacter(character);
-    }
-
-    const handleClose = () => {
-        setModalVisible(false);
-        setCharacter({});
-    }
-
     return (
-        <>
-        <View style={Styles.container}>
-            <SafeAreaView />
-            <StatusBar  barStyle="light-content"/>
-            
-            <Topbar getFilteredCharacters = {getFilteredCharacters} />
-            
-            {data && (<CharacterList
-                data={data.results}
-                handlePress={handlePress}
-                handleNextCharacters={getNextCharacters}
-            />
-            )}
+        <NavigationContainer>
+            <Tab.Navigator 
+                initialRouteName = 'home'
+                screenOptions = {({ route }) => ({
+                    tabBarIcon: ({ focused, color, size }) => {
+                        if (route.name === 'home') {
+                            return focused ? 
+                                <Image style = {{ width: size, height: size }} source = {require('./assets/home.png')} /> 
+                                : <Image style = {{ width: size, height: size }} source = {require('./assets/home_unfocused.png')} />
+                        }
 
-            <Modal transparent visible = {modalVisible} animationType = "slide">
-                <Character
-                    character={character}
-                    handleClose={handleClose}
-                />
-            </Modal>
-        </View>
-
-        {modalVisible && (
-            <View style = {Styles.blur} />
-        )}
-        </>
-    )
+                        else if (route.name === 'favorites') {
+                            return focused ?
+                                <Image style = {{ width: size, height: size }} source = {require('./assets/favorites.png')} />
+                                : <Image style = {{ width: size, height: size }} source = {require('./assets/favorites_unfocused.png')} />
+                        }
+                    },
+                    tabBarActiveTintColor: 'black',
+                    tabBarInactiveTintColor: 'grey'                
+                })} 
+            >
+                <Tab.Screen name = 'home' component = {HomeScreen} options = {{ headerShown: false }} />
+                <Tab.Screen name = 'favorites' component = {FavoritesScreen} options = {{ headerShown: false }} />
+            </Tab.Navigator>
+        </NavigationContainer>
+    );
 }
