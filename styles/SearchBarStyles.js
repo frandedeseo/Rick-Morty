@@ -8,14 +8,15 @@ export const Styles = StyleSheet.create({
     searchIcon: {
         width: 20, 
         height: 20,
+        marginLeft: '2%'
 
     },
     cancelButton: {
         backgroundColor: 'white',
         color: 'rgb(94, 170, 249)',
-        fontSize: 14,
-        marginLeft: '5%',
+        marginLeft: '3%',
         fontWeight: "bold",
+        fontSize: 14,
     },
 
     cross: {
@@ -23,18 +24,10 @@ export const Styles = StyleSheet.create({
         height: 11,
 
     },
-    /*
-    searchBar__unclicked: {
-        flexDirection: "row",
-        width: "73%",
-        backgroundColor: "#d9dbda",
-        borderBottomRightRadius: 5,
-        borderTopRightRadius: 5,
-        alignItems: "center",
-    }, */
+
     searchBar: {
         flexDirection: "row",
-        width: "56%",
+        width: "65%",
         backgroundColor: "#d9dbda",
         borderBottomRightRadius: 5,
         borderTopRightRadius: 5,
@@ -43,6 +36,6 @@ export const Styles = StyleSheet.create({
     input: {
         fontSize: 15,
         marginLeft: 2,
-        width: "70%",
+        width: "75%",
     },
 });

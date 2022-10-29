@@ -54,90 +54,61 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
 
     return (
         <>
-            {filterVisibility && (
-            <>
-                <View style = {Styles.row}>
-                    {!moreOptionsVisibility && (
-                        <TouchableOpacity style = {Styles.plusButton} onPress = {aparecer} >
-                            <Image style = {Styles.plusIcon} source = {require('../assets/plusIcon.png')} />
-                        </TouchableOpacity>
-                    )}
+        {filterVisibility && (
+        <>
+            <View style = {Styles.row}>
+                {!moreOptionsVisibility && (
+                    <TouchableOpacity style = {Styles.plusButton} onPress = {aparecer} >
+                        <Image style = {Styles.plusIcon} source = {require('../assets/plusIcon.png')} />
+                    </TouchableOpacity>
+                )}
 
-                    {moreOptionsVisibility && (
-                        <TouchableOpacity style = {Styles.plusButton} onPress = {desaparecer} >
-                            <Image style = {Styles.substractIcon} source = {require('../assets/substractIcon.png')} />
-                        </TouchableOpacity>
-                    )}
+                {moreOptionsVisibility && (
+                    <TouchableOpacity style = {Styles.plusButton} onPress = {desaparecer} >
+                        <Image style = {Styles.substractIcon} source = {require('../assets/substractIcon.png')} />
+                    </TouchableOpacity>
+                )}
+
+                <Picker 
+                    style = {Styles.filterText} 
+                    options = {['name', 'species', 'type']} 
+                    filterOptions = {inputOption} 
+                    setFilterOptions = {setInputOption} 
+                />
+
+                <View style = {Styles.line} />
+
+                <SearchBar 
+                    textInput = {textInput}  
+                    setTextInput = {setTextInput} 
+                    handleCancel = {handleCancel} 
+                    handleSubmit = {handleSubmit}
+                />
+            </View>
+
+            <Animated.View style = {[Styles.modalView, {transform: [{translateY: anim}]}]}>
+                <View style = {Styles.pickers}>
+                    <Picker 
+                        options = {['None','Male', 'Female', 'Unknown', 'Genderless']} 
+                        style={Styles.filterGender} 
+                        filterOptions = {genderOption} 
+                        setFilterOptions = {setGenderOption} 
+                    />
 
                     <Picker 
-                        style = {Styles.filterText} 
-                        options = {['name', 'species', 'type']} 
-                        filterOptions = {inputOption} 
-                        setFilterOptions = {setInputOption} 
-                    />
-
-                    <View style = {Styles.line} />
-
-                    <SearchBar 
-                        textInput = {textInput}  
-                        setTextInput = {setTextInput} 
-                        handleCancel = {handleCancel} 
-                    />
-
-                    {/* <TextInput 
-                        style ={Styles.input} 
-                        value = {textInput}
-                        onChangeText = {setTextInput} 
-                        placeholder = "TextFilter"
+                        options = {['None','Alive', 'Dead', 'Unknown']} 
+                        style = {Styles.filterStatus} 
+                        filterOptions = {statusOption} 
+                        setFilterOptions = {setStatusOption} 
                     /> 
-                    <TouchableOpacity onPress = {handleCancel} style = {Styles.cancelButton}>
-                        <Image style = {Styles.cancelIcon} source = {require('../assets/cancelIcon.png')} />
-                    </TouchableOpacity>                    
-                    */
-                    }
 
-                    <TouchableOpacity onPress = {handleSubmit} style = {Styles.sendButton}>
+                    <TouchableOpacity onPress = {handleSubmit}>
                         <Image style = {Styles.sendIcon} source = {require('../assets/boton-enviar.png')} />
                     </TouchableOpacity>
-
-
                 </View>
-
-                <Animated.View style = {[Styles.modalView, {transform: [{translateY: anim}]}]}>
-                    <View style = {Styles.pickers}>
-                        <Picker 
-                            options = {['None','Male', 'Female', 'Unknown', 'Genderless']} 
-                            style={Styles.filterGender} 
-                            filterOptions = {genderOption} 
-                            setFilterOptions = {setGenderOption} 
-                        />
-
-                        <Picker 
-                            options = {['None','Alive', 'Dead', 'Unknown']} 
-                            style = {Styles.filterStatus} 
-                            filterOptions = {statusOption} 
-                            setFilterOptions = {setStatusOption} 
-                        /> 
-                    </View>
-                </Animated.View>                                   
-            </>
-            )}
+            </Animated.View>                                   
+        </>
+        )}
         </>
     )
 }
-        {/*!filterVisibility && (
-                <TouchableOpacity onPress = {() => setFilterVisibility(true)} style = {Styles.searchButton}>
-                    <Image style = {{ width: 25, height: 20}} source = {require('../assets/searchIcon.png')} />
-                </TouchableOpacity>
-                                <TouchableOpacity style = {Styles.button} onPress = {() => setMoreOptionsVisibility(false)}>
-                    <Text style = {Styles.buttonText}> Done </Text>
-                </TouchableOpacity>
-        )*/}
-
-
-
-/*
-                <TouchableOpacity style = {Styles.button} onPress = {handleReset}>
-                    <Text style = {Styles.buttonText}> Reset </Text>
-                </TouchableOpacity>
-                */

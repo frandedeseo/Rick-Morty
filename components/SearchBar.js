@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TextInput, View, Keyboard, Image, Text, TouchableOpacity} from "react-native";
 import { Styles } from '../styles/SearchBarStyles';
 
-const SearchBar = ({ textInput, setTextInput, handleCancel }) => {
+const SearchBar = ({ textInput, setTextInput, handleCancel, handleSubmit }) => {
     const [clicked, setClicked] = useState(false);
 
     return (
@@ -20,6 +20,7 @@ const SearchBar = ({ textInput, setTextInput, handleCancel }) => {
                     value = {textInput}
                     onChangeText = {setTextInput}
                     onFocus = {() => setClicked(true)}
+                    onSubmitEditing = {handleSubmit}
                 />
 
                 {clicked && (

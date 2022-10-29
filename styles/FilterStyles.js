@@ -2,20 +2,9 @@
 import { StyleSheet } from 'react-native';
 
 export const Styles = StyleSheet.create({
-    /*
-    input: {
-        borderWidth: 1,
-        backgroundColor: 'white',
-        height: 36,
-        width: '55%',
-        paddingLeft: '2%',
-        fontSize: 18,
-        alignSelf: 'center',
-        marginLeft: 'auto',
-    }, */
     plusButton: {
         alignSelf: 'center',
-        marginLeft: '6%',
+        //marginRight: '2%'
     },
 
     plusIcon: {
@@ -31,7 +20,7 @@ export const Styles = StyleSheet.create({
     },
 
     filterText: {
-        width: '24%',
+        width: '25%',
         alignSelf: 'center',
         borderBottomLeftRadius: 5,
         borderTopLeftRadius: 5,
@@ -54,12 +43,7 @@ export const Styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: '1%',
-    },
-
-    sendButton: {
-        position: 'absolute',
-        left: '89%',
-        top: 6,
+        width: '100%'
     },
 
     sendIcon: {
@@ -83,8 +67,8 @@ export const Styles = StyleSheet.create({
         height: 40,
         display: 'flex',
         flexDirection: 'row',
-        alignContent: 'center',
-        justifyContent: 'center',
+        //alignContent: 'center',
+        //justifyContent: 'center',
         backgroundColor: "white",
     },
 
@@ -114,7 +98,7 @@ export const Styles = StyleSheet.create({
     line: {
         borderRightColor: 'black',
         borderRightWidth: StyleSheet.hairlineWidth,
-        marginBottom: 7,
-        marginTop: 7,
+        marginBottom: 8,
+        marginTop: 8,
     },
 });
