@@ -43,6 +43,7 @@ export default function FavoritesScreen() {
             {data && (
                 <CharacterList
                     data = {data.results}
+                    icon = {require('../assets/cross-dark.png')}
                     handlePress = {handlePress}
                     handleNextCharacters = {getNextCharacters}
                 />

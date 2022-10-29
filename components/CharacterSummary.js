@@ -10,7 +10,7 @@ const status = {
     "unknown": '#9e9e9e'
 }
 
-export default function CharacterSummary({ item: character, handlePress }){
+export default function CharacterSummary({ item: character, handlePress, icon }){
 
     return (
         <View style = {Styles.container}>
@@ -22,6 +22,10 @@ export default function CharacterSummary({ item: character, handlePress }){
                         <View style = {Styles.row}>
                             <Text style = {{ ...Styles.status, backgroundColor: status[character.status] }} />
                             <Text style = {Styles.name}> {character.name} </Text>
+
+                            <TouchableOpacity style = {Styles.iconWrap}>
+                                <Image style = {Styles.icon} source = {icon} />
+                            </TouchableOpacity>
                         </View>
 
                         <View style = {Styles.line} />

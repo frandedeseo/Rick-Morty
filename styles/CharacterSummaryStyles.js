@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 
 export const Styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgb(64,44,56)',
+        //backgroundColor: 'rgb(64,44,56)',
+        backgroundColor: 'rgb(60, 62, 68)',
         margin: 6,
         borderRadius: 10,
     },
@@ -66,5 +67,16 @@ export const Styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         marginBottom: 10,
         marginTop: 5
+    },
+
+    icon: {
+        width: 15,
+        height: 15,
+    },
+
+    iconWrap: { 
+        justifyContent: 'center',
+        marginLeft: 'auto',
+        marginRight: '3%' 
     }
 })

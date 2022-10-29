@@ -43,6 +43,7 @@ export default function HomeScreen() {
             {data && (
                 <CharacterList
                     data = {data.results}
+                    icon = {require('../assets/favorites_unfocused.png')}
                     handlePress = {handlePress}
                     handleNextCharacters = {getNextCharacters}
                 />
