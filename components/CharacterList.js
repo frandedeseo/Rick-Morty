@@ -7,7 +7,7 @@ import CharacterSummary from './CharacterSummary';
 // Styles
 import { Styles } from '../styles/CharacterListStyles';
 
-export default function CharacterList({ data, icon, handlePress, handleNextCharacters }) {
+export default function CharacterList({ data, icon, handlePress, handleNextCharacters, handlePressIcon }) {
 
     return (
         <View style = {Styles.container}>
@@ -18,7 +18,7 @@ export default function CharacterList({ data, icon, handlePress, handleNextChara
                     onEndReached = {handleNextCharacters} 
                     keyExtractor = {character => character.id} 
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item }) => <CharacterSummary item = {item} handlePress = {handlePress} icon = {icon} />}
+                    renderItem = {({ item }) => <CharacterSummary item = {item} handlePress = {handlePress} icon = {icon} handlePressIcon = {handlePressIcon} />}
                 />
             )}
 
