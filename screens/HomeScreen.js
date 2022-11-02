@@ -10,6 +10,10 @@ import Topbar from '../components/Topbar';
 // Hooks
 import { useApi } from '../hooks/useApi';
 
+// Firebase
+import { database } from '../firebase/config';
+import { ref, set } from 'firebase/database';
+
 // Styles
 import { Styles } from '../AppStyles';
 
@@ -32,6 +36,13 @@ export default function HomeScreen() {
         setCharacter({});
     }
 
+    const addCharactersToFavorites = (character) => {
+        set(ref(database, 'favoriteCharacters/' + character.id), {
+            character: character
+        });
+        //console.log(character);
+    }
+
     return (
         <>
         <View style = {Styles.container}>
@@ -46,6 +57,7 @@ export default function HomeScreen() {
                     icon = {require('../assets/favorites_unfocused.png')}
                     handlePress = {handlePress}
                     handleNextCharacters = {getNextCharacters}
+                    handlePressIcon = {addCharactersToFavorites}
                 />
             )}
 

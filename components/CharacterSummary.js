@@ -13,7 +13,7 @@ const status = {
 
 
 //onPress = {() => handlePress(character)}
-export default function CharacterSummary({ item: character, index, handlePress, icon, scrollY }){
+export default function CharacterSummary({ item: character, index, handlePress, icon, scrollY, handlePressIcon }){
     const [estado, setEstado] = useState(0);
     const anim = useRef(new Animated.Value(0)).current;
 
@@ -149,7 +149,7 @@ export default function CharacterSummary({ item: character, index, handlePress, 
                                 <Text style = {{ ...Styles.status, backgroundColor: status[character.status] }} />
                                 <Text style = {Styles.name}> {character.name} </Text>
 
-                                <TouchableOpacity style = {Styles.iconWrap}>
+                                <TouchableOpacity style = {Styles.iconWrap} onPress = {() => handlePressIcon(character)}>
                                     <Image style = {Styles.icon} source = {icon} />
                                 </TouchableOpacity>
                             </View>

@@ -8,7 +8,7 @@ import CharacterSummary from './CharacterSummary';
 // Styles
 import { Styles } from '../styles/CharacterListStyles';
 
-export default function CharacterList({ data, icon, handlePress, handleNextCharacters }) {
+export default function CharacterList({ data, icon, handlePress, handleNextCharacters, handlePressIcon }) {
 
     const scrollY = useRef(new Animated.Value(0)).current;
     return (
@@ -26,7 +26,7 @@ export default function CharacterList({ data, icon, handlePress, handleNextChara
                     onEndReached = {handleNextCharacters} 
                     keyExtractor = {character => character.id} 
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <CharacterSummary item = {item} index = {index} handlePress = {handlePress} icon = {icon} scrollY = {scrollY} />}
+                    renderItem = {({ item, index }) => <CharacterSummary item = {item} index = {index} handlePress = {handlePress} handlePressIcon = {handlePressIcon}  icon = {icon} scrollY = {scrollY} />}
                 />
             )}
 
