@@ -4,31 +4,11 @@ import { StyleSheet } from 'react-native';
 export const Styles = StyleSheet.create({
     container: {
         margin: 6,
-        borderRadius: 10
-    },
-
-    front: {
-        //backgroundColor: 'rgb(64,44,56)',
-        start: 0,
+        borderRadius: 10,
         borderRadius: 10,
         backgroundColor: 'rgb(60, 62, 68)',
-        top: 0,
         width: '100%',
-        elevation: 100,
-    },
-    
-    back: {
-        elevation: 100,
-        //backgroundColor: 'rgb(64,44,56)',
-        position: 'absolute',
-        borderRadius: 10,
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        top: 0,
-
+        elevation: 10,
     },
 
     image: {

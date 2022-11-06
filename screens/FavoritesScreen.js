@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 // Components
 import CharacterList from '../components/CharacterList';
-import Character from '../components/Character';
+import FavoriteCharacter from '../components/FavoriteCharacter';
 import Topbar from '../components/Topbar';
 
 // Firebase
@@ -41,6 +41,10 @@ export default function FavoritesScreen({ navigation }) {
         setCharacter({});
     }
 
+    const addCommentToCharacter = (text) => {
+
+    }
+
     const removeCharacter = (character) => {
         remove(ref(database, 'favoriteCharacters/' + character.id));
     }
@@ -63,8 +67,9 @@ export default function FavoritesScreen({ navigation }) {
             )}
 
             <Modal transparent visible = {modalVisible} animationType = "slide">
-                <Character
+                <FavoriteCharacter
                     character = {character}
+                    addCommentToCharacter = {addCommentToCharacter}
                     handleClose = {handleClose}
                 />
             </Modal>

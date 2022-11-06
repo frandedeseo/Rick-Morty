@@ -20,7 +20,7 @@ import { Styles } from '../AppStyles';
 export default function HomeScreen() {
     const [character, setCharacter] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
-    const { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
+    const { data, deleteCharacter, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
 
     useEffect(() => {
         getCharactersFromApi();
@@ -40,7 +40,7 @@ export default function HomeScreen() {
         set(ref(database, 'favoriteCharacters/' + character.id), {
             character: character
         });
-        //console.log(character);
+        deleteCharacter(character);
     }
 
     return (

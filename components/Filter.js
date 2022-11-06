@@ -82,7 +82,7 @@ export default function Filter({ filterVisibility, setFilterVisibility, getFilte
                     textInput = {textInput}  
                     setTextInput = {setTextInput} 
                     handleCancel = {handleCancel} 
-                    handleSubmit = {handleSubmit}
+                    handleSubmit = {handleSubmit} 
                 />
             </View>
 

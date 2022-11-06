@@ -44,5 +44,19 @@ export function useApi() {
             })
     }
 
-    return { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters };
+    const deleteCharacter = (character) => {
+        console.log("holis");
+        setData(prevData => {
+            json = prevData;
+            prevData.results = prevData.results.filter(char => {
+                return char.id !== character.id;
+            });
+            json.results = [...prevData.results];
+            console.log("hola");
+            return json;
+        });
+        console.log(data);
+    }
+
+    return { data, deleteCharacter, getCharactersFromApi, getNextCharacters, getFilteredCharacters };
 }

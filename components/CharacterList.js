@@ -1,5 +1,5 @@
 // React
-import { View, FlatList, Image, Animated } from 'react-native';
+import { View, FlatList, TouchableOpacity, Image, Animated } from 'react-native';
 import { useRef } from 'react';
 
 // Components
@@ -9,24 +9,24 @@ import CharacterSummary from './CharacterSummary';
 import { Styles } from '../styles/CharacterListStyles';
 
 export default function CharacterList({ data, icon, handlePress, handleNextCharacters, handlePressIcon }) {
-
     const scrollY = useRef(new Animated.Value(0)).current;
     return (
         <View style = {Styles.container}>
             {data && (
                 <Animated.FlatList 
-                    data = {data} 
+                    data = {data}
+                    extraData={data}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: scrollY}}}],
                         {useNativeDriver: true}
-                    )
+                    )   
                     
                     }
                     onEndReachedThreshold = {0.5}
                     onEndReached = {handleNextCharacters} 
-                    keyExtractor = {character => character.id} 
+                    keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <CharacterSummary item = {item} index = {index} handlePress = {handlePress} handlePressIcon = {handlePressIcon}  icon = {icon} scrollY = {scrollY} />}
+                    renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} handlePress = {handlePress} handlePressIcon = {handlePressIcon}  icon = {icon} scrollY = {scrollY} />}
                 />
             )}
 
