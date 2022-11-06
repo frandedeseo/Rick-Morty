@@ -11,5 +11,11 @@ export const Styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.7)', 
         width: '100%', 
         height: '100%'
+    },
+
+    loading: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: '40%'
     }
 })

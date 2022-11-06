@@ -1,5 +1,5 @@
 // React
-import { StatusBar, View, Modal, SafeAreaView } from 'react-native';
+import { StatusBar, View, Modal, SafeAreaView, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 
 // Components
@@ -64,6 +64,9 @@ export default function FavoritesScreen({ navigation }) {
                     handlePress = {handlePress}
                     handlePressIcon = {removeCharacter}
                 />
+            )}
+            {data.length==0 && (
+                <ActivityIndicator style={Styles.loading} size='large' color="#00ff00" />
             )}
 
             <Modal transparent visible = {modalVisible} animationType = "slide">
