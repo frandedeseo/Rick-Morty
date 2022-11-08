@@ -11,18 +11,18 @@ const status = {
     "unknown": '#9e9e9e'
 }
 const layoutAnimConfig = {
-    duration: 300,
+    duration: 400,
     update: {
       type: LayoutAnimation.Types.easeInEaseOut, 
     },
     delete: {
-      duration: 100,
+      duration: 200,
       type: LayoutAnimation.Types.easeInEaseOut,
       property: LayoutAnimation.Properties.opacity,
     },
 };
   
-  if (
+  if ( 
     Platform.OS === "android" &&
     UIManager.setLayoutAnimationEnabledExperimental
   ) {
@@ -31,45 +31,46 @@ const layoutAnimConfig = {
 
 
 //
-export default function CharacterSummary({ character, index, handlePress, icon, scrollY, handlePressIcon }){
+export default function CharacterSummary({ character, index, handlePress, isFavorite, scrollY, handlePressIcon }){
     const anim = useRef(new Animated.Value(0)).current;
+    const [heartPressed, setHeartPressed] = useState(0);
 
-
-    const desplazamientoDerecha = () => {
-        
+    const desplazamientoDerecha = () => { 
+        setHeartPressed(1);
+        LayoutAnimation.configureNext(layoutAnimConfig);
         handlePressIcon(character);
-       // LayoutAnimation.configureNext(layoutAnimConfig)
+        
         // Animated.timing(anim, {
-        //   toValue: 400,
-        //   duration: 500,
-        //   useNativeDriver: false
+        //     toValue: 400,
+        //     duration: 500,
+        //     useNativeDriver: false
         // }).start();
+        
+    };
+    const desplazamientoIzq = () => {
+        setHeartPressed(1);
+        
+        LayoutAnimation.configureNext(layoutAnimConfig);
+        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        //  Animated.timing(anim, {
+        //      toValue: -400,
+        //      duration: 600,
+        //      useNativeDriver: true
+        //  }).start();
+        handlePressIcon(character);
         
     };
 
     const interpolacion = () => {
         var input;
         if (index>3){
-            input = [
-                0,
-                120 * ((index)-3.6),
-                120 * ((index)-2),
-                120 * index,
-                120 * (index+0.6),
-                120 * (index+1.5)
-            ]
+            input = [0, 120 * ((index)-3.6), 120 * ((index)-2), 120 * index, 120 * (index+0.6), 120 * (index+1.5)]
         }else{
-            input = [
-                -1,
-                -1,
-                -1,
-                120 * index,
-                120 * (index+0.6),
-                120 * (index+1.5)
-            ]
+            input = [ -1, -1, -1, 120 * index, 120 * (index+0.6), 120 * (index+1.5)]
         }
         return input;
     }
+
     const scale = scrollY.interpolate({
         inputRange: interpolacion(),
         outputRange: [0, 0.7, 1, 1, 0.6, 0]
@@ -91,9 +92,20 @@ export default function CharacterSummary({ character, index, handlePress, icon, 
                             <Text style = {{ ...Styles.status, backgroundColor: status[character.status] }} />
                             <Text style = {Styles.name}> {character.name} </Text>
 
+                            {!isFavorite && (
                             <TouchableOpacity style = {Styles.iconWrap} onPress = {() => desplazamientoDerecha()}>
-                                <Image style = {Styles.icon} source = {icon} />
+                                {!heartPressed ? <Image style = {Styles.icon} source = {require('../assets/favoritesCharacter_unfocused.png')} />
+                                               : <Image style = {Styles.icon} source = {require('../assets/favoritesCharacter.png')} />
+                                }
                             </TouchableOpacity>
+                            )}
+                            {isFavorite && (
+                            <TouchableOpacity style = {Styles.iconWrap} onPress = {() => desplazamientoIzq()}>
+                                {!heartPressed ? <Image style = {Styles.icon} source = {require('../assets/favoritesCharacter.png')} />
+                                               : <Image style = {Styles.icon} source = {require('../assets/favoritesCharacter_unfocused.png')} />
+                                }
+                            </TouchableOpacity>
+                            )}
                         </View>
 
                         <View style = {Styles.line} />

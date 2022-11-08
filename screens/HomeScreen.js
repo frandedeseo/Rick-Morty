@@ -20,6 +20,7 @@ import { Styles } from '../AppStyles';
 export default function HomeScreen() {
     const [character, setCharacter] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
     const { data, deleteCharacter, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
 
     useEffect(() => {
@@ -37,10 +38,10 @@ export default function HomeScreen() {
     }
 
     const addCharactersToFavorites = (character) => {
+        deleteCharacter(character);
         set(ref(database, 'favoriteCharacters/' + character.id), {
             character: character
         });
-        deleteCharacter(character);
     }
 
     return (
@@ -54,7 +55,8 @@ export default function HomeScreen() {
             {data && (
                 <CharacterList
                     data = {data.results}
-                    icon = {require('../assets/favorites_unfocused.png')}
+                    isFavorite = {isFavorite}
+                    setIsFavorite = {setIsFavorite}
                     handlePress = {handlePress}
                     handleNextCharacters = {getNextCharacters}
                     handlePressIcon = {addCharactersToFavorites}

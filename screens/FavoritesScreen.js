@@ -18,6 +18,7 @@ export default function FavoritesScreen({ navigation }) {
     const [data, setData] = useState([]);
     const [character, setCharacter] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(true);
 
     useEffect(() => {
         const charactersRef = ref(database, 'favoriteCharacters/');
@@ -60,7 +61,8 @@ export default function FavoritesScreen({ navigation }) {
             {data && (
                 <CharacterList
                     data = {data}
-                    icon = {require('../assets/cross-dark.png')}
+                    isFavorite = {isFavorite}
+                    setIsFavorite = {setIsFavorite}
                     handlePress = {handlePress}
                     handlePressIcon = {removeCharacter}
                 />

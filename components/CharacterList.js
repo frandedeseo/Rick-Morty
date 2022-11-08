@@ -1,6 +1,6 @@
 // React
 import { View, FlatList, TouchableOpacity, Image, Animated } from 'react-native';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 // Components
 import CharacterSummary from './CharacterSummary';
@@ -8,14 +8,22 @@ import CharacterSummary from './CharacterSummary';
 // Styles
 import { Styles } from '../styles/CharacterListStyles';
 
-export default function CharacterList({ data, icon, handlePress, handleNextCharacters, handlePressIcon }) {
+export default function CharacterList({ data, isFavorite, setIsFavorite, handlePress, handleNextCharacters, handlePressIcon }) {
     const scrollY = useRef(new Animated.Value(0)).current;
+    const [dataVariation, setDataVariation] = useState(false);
+
+    const handlePressIcon2 = (character) => {
+        setDataVariation(!dataVariation);
+        console.log(dataVariation);
+        handlePressIcon(character);
+    }
+    //data.addEventListener("change", () => setDataVariation(!dataVariation));
     return (
         <View style = {Styles.container}>
             {data && (
                 <Animated.FlatList 
                     data = {data}
-                    extraData={data}
+                    extraData={dataVariation.state}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: scrollY}}}],
                         {useNativeDriver: true}
@@ -26,7 +34,7 @@ export default function CharacterList({ data, icon, handlePress, handleNextChara
                     onEndReached = {handleNextCharacters} 
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} handlePress = {handlePress} handlePressIcon = {handlePressIcon}  icon = {icon} scrollY = {scrollY} />}
+                    renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} handlePress = {handlePress} handlePressIcon = {handlePressIcon2}  isFavorite = {isFavorite} dataVariation={dataVariation} scrollY = {scrollY} />}
                 />
             )}
 

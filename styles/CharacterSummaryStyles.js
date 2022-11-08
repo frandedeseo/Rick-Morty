@@ -10,6 +10,10 @@ export const Styles = StyleSheet.create({
         width: '100%',
         elevation: 10,
     },
+    moveLeft: {
+        position: 'absolute',
+        left: 100,
+    },
 
     image: {
         width: 110, 
