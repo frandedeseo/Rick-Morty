@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+//React
 import { TextInput, View, Keyboard, Image, Text, TouchableOpacity} from "react-native";
+import { useState } from "react";
+
+//Styles
 import { Styles } from '../styles/CommentInputStyles';
 
 const CommentInput = ({ ocultarModal, addCommentToCharacter }) => {
+    
     const [clicked, setClicked] = useState(false);
     const [textInput, setTextInput] = useState('');
 

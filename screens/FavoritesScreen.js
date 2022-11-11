@@ -3,9 +3,10 @@ import { StatusBar, View, Modal, SafeAreaView, ActivityIndicator } from 'react-n
 import { useState, useEffect } from 'react';
 
 // Components
-import CharacterList from '../components/CharacterList';
-import FavoriteCharacter from '../components/FavoriteCharacter';
-import Topbar from '../components/Topbar';
+import FavoriteCharacterList from '../components/FavoriteCharacterList';
+import Character from '../components/Character';
+import FavoriteTopbar from '../components/FavoriteTopbar';
+import CommentInput from '../components/CommentInput';
 
 // Firebase
 import { database } from '../firebase/config';
@@ -17,8 +18,8 @@ import { Styles } from '../AppStyles';
 export default function FavoritesScreen({ navigation }) {
     const [data, setData] = useState([]);
     const [character, setCharacter] = useState({});
-    const [modalVisible, setModalVisible] = useState(false);
-    const [isFavorite, setIsFavorite] = useState(true);
+    const [modalCharacter, setModalCharacter] = useState(false);
+    const [modalComment, setModalComment] = useState(false);
 
     useEffect(() => {
         const charactersRef = ref(database, 'favoriteCharacters/');
@@ -32,14 +33,23 @@ export default function FavoritesScreen({ navigation }) {
         })
     }, [])
 
-    const handlePress = (character) => {
-        setModalVisible(true);
+    const handlePressCharacter = (character) => {
+        setModalCharacter(true);
         setCharacter(character);
     }
 
-    const handleClose = () => {
-        setModalVisible(false);
+    const handleCloseCharacter = () => {
+        setModalCharacter(false);
         setCharacter({});
+    }
+
+    const handlePressComment = (character) => {
+        setModalComment(true);
+        setCharacter(character);
+    }
+
+    const handleCloseComment = () => {
+        setModalComment(false);
     }
 
     const addCommentToCharacter = (text) => {
@@ -56,31 +66,34 @@ export default function FavoritesScreen({ navigation }) {
             <SafeAreaView />
             <StatusBar  barStyle = "light-content"/>
             
-            {/* <Topbar getFilteredCharacters = {getFilteredCharacters} /> */}
+            <FavoriteTopbar/> 
             
             {data && (
-                <CharacterList
+                <FavoriteCharacterList
                     data = {data}
-                    isFavorite = {isFavorite}
-                    setIsFavorite = {setIsFavorite}
-                    handlePress = {handlePress}
+                    handlePressCharacter = {handlePressCharacter}
                     handlePressIcon = {removeCharacter}
+                    handlePressComment = {handlePressComment}
                 />
             )}
             {data.length==0 && (
                 <ActivityIndicator style={Styles.loading} size='large' color="#00ff00" />
             )}
 
-            <Modal transparent visible = {modalVisible} animationType = "slide">
-                <FavoriteCharacter
+            <Modal transparent visible = {modalCharacter} animationType = "slide">
+                <Character
                     character = {character}
                     addCommentToCharacter = {addCommentToCharacter}
-                    handleClose = {handleClose}
+                    handleClose = {handleCloseCharacter}
                 />
+            </Modal>
+
+            <Modal transparent visible = {modalComment} animationType = "slide">
+                <CommentInput ocultarModal={handleCloseComment} addCommentToCharacter={addCommentToCharacter}/>
             </Modal>
         </View>
 
-        {modalVisible && (
+        {(modalCharacter || modalComment) && (
             <View style = {Styles.blur} />
         )}
         </>

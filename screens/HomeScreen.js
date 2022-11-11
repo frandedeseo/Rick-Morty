@@ -12,7 +12,7 @@ import { useApi } from '../hooks/useApi';
 
 // Firebase
 import { database } from '../firebase/config';
-import { ref, set } from 'firebase/database';
+import { ref, remove, set } from 'firebase/database';
 
 // Styles
 import { Styles } from '../AppStyles';
@@ -20,8 +20,7 @@ import { Styles } from '../AppStyles';
 export default function HomeScreen() {
     const [character, setCharacter] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
-    const [isFavorite, setIsFavorite] = useState(false);
-    const { data, deleteCharacter, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
+    const { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
 
     useEffect(() => {
         getCharactersFromApi();
@@ -37,11 +36,14 @@ export default function HomeScreen() {
         setCharacter({});
     }
 
-    const addCharactersToFavorites = (character) => {
-        deleteCharacter(character);
+    const addCharacterToFavorites = (character) => {
         set(ref(database, 'favoriteCharacters/' + character.id), {
             character: character
         });
+    }
+
+    const removeCharacterFromFavorites = (character) => {
+        remove(ref(database, 'favoriteCharacters/' + character.id));
     }
 
     return (
@@ -55,11 +57,10 @@ export default function HomeScreen() {
             {data && (
                 <CharacterList
                     data = {data.results}
-                    isFavorite = {isFavorite}
-                    setIsFavorite = {setIsFavorite}
                     handlePress = {handlePress}
                     handleNextCharacters = {getNextCharacters}
-                    handlePressIcon = {addCharactersToFavorites}
+                    addCharacterToFavorites = {addCharacterToFavorites}
+                    removeCharacterFromFavorites = {removeCharacterFromFavorites}
                 />
             )}
 

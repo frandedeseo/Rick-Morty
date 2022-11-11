@@ -5,20 +5,13 @@ import { useState } from 'react';
 // Styles
 import { Styles } from '../styles/CharacterStyles';
 
-import CommentInput from './CommentInput';
-
 const status = {
     "Alive": '#55cc44',
     "Dead": 'red',
     "unknown": '#9e9e9e'
 }
 
-export default function FavoriteCharacter({ character, addCommentToCharacter, handleClose }) {
-    const [modalVisible, setModalVisible] = useState(false);
-
-    const ocultarModal = () => {
-        setModalVisible(false);
-    }
+export default function FavoriteCharacter({ character, handleClose }) {
 
     return (
         <View style = {Styles.modalView}>
@@ -52,12 +45,7 @@ export default function FavoriteCharacter({ character, addCommentToCharacter, ha
                         <Text style = {Styles.text}>{character.origin.name}</Text>
                     </View>
                 </View>
-                <Modal transparent visible = {modalVisible} animationType = "slide">
-                    <CommentInput ocultarModal={ocultarModal} addCommentToCharacter={addCommentToCharacter}/>
-                </Modal>
-                <TouchableOpacity onPress= {() => setModalVisible(true)}>
-                    <Text style = {Styles.buttonText}> Add Comment </Text>
-                </TouchableOpacity>
+
                 
             </View>
             

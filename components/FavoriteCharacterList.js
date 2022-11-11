@@ -1,19 +1,15 @@
 // React
-import { View, FlatList, TouchableOpacity, Image, Animated } from 'react-native';
-import { useRef, useState } from 'react';
+import { View, FlatList, Image, Animated } from 'react-native';
+import { useRef } from 'react';
 
 // Components
-import CharacterSummary from './CharacterSummary';
+import FavoriteCharacterSummary from './FavoriteCharacterSummary';
 
 // Styles
 import { Styles } from '../styles/CharacterListStyles';
 
-export default function CharacterList({ data, handlePress, handleNextCharacters, addCharacterToFavorites, removeCharacterFromFavorites }) {
+export default function FavoriteCharacterList({ data, handlePressCharacter, handleNextCharacters, handlePressIcon, handlePressComment }) {
     const scrollY = useRef(new Animated.Value(0)).current;
-
-    const isFavorite = (item) => {
-        //Consulta a firebase si esta en los favoritos el elemento
-    }
 
     return (
         <View style = {Styles.container}>
@@ -30,7 +26,7 @@ export default function CharacterList({ data, handlePress, handleNextCharacters,
                     onEndReached = {handleNextCharacters} 
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} handlePress = {handlePress} addCharacterToFavorites = {addCharacterToFavorites} removeCharacterFromFavorites = {removeCharacterFromFavorites} favorite = {false} scrollY = {scrollY} />}
+                    renderItem = {({ item, index }) => <FavoriteCharacterSummary character = {item} index = {index}  scrollY = {scrollY} handlePressCharacter = {handlePressCharacter} handlePressIcon = {handlePressIcon} handlePressComment = {handlePressComment}/>}
                 />
             )}
 
@@ -40,6 +36,7 @@ export default function CharacterList({ data, handlePress, handleNextCharacters,
                     <Image style = {Styles.imgNoResultados} source = {require('../assets/noResultados.jpg')} />
                 </View>
             )}
+
         </View>
     );
 }
