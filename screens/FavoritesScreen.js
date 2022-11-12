@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 
 // Components
 import FavoriteCharacterList from '../components/FavoriteCharacterList';
-import Character from '../components/Character';
-import FavoriteTopbar from '../components/FavoriteTopbar';
 import CommentInput from '../components/CommentInput';
+import Character from '../components/Character';
+import Topbar from '../components/Topbar';
 
 // Firebase
 import { database } from '../firebase/config';
@@ -66,7 +66,7 @@ export default function FavoritesScreen({ navigation }) {
             <SafeAreaView />
             <StatusBar  barStyle = "light-content"/>
             
-            <FavoriteTopbar/> 
+            <Topbar /> 
             
             {data && (
                 <FavoriteCharacterList
