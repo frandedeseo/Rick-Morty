@@ -7,7 +7,7 @@ export const Styles = StyleSheet.create({
         borderRadius: 10,
         borderRadius: 10,
         backgroundColor: 'rgb(60, 62, 68)',
-        width: '100%',
+        width: '95%',
         elevation: 10,
     },
     moveLeft: {
@@ -51,14 +51,9 @@ export const Styles = StyleSheet.create({
         fontSize: 20
     },
 
-    text1: {
+    text: {
         color: '#f5f5f5',
         fontSize: 15,
-    },
-    text2: {
-        color: '#f5f5f5',
-        fontSize: 15,
-        width: 150,
     },
 
     type: {
@@ -78,6 +73,16 @@ export const Styles = StyleSheet.create({
     icon: {
         width: 15,
         height: 15,
+    },
+
+    show_comment_icon: {
+        width: 20,
+        height: 20
+    },
+
+    add_comment_icon: {
+        width: 23,
+        height: 23
     },
 
     iconWrap: { 

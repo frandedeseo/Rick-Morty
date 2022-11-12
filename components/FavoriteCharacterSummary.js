@@ -82,15 +82,21 @@ export default function FavoriteCharacterSummary({ character, index, scrollY, ha
                             {character.gender === 'Female' && <Image style = {Styles.genderImage} source = {require('../assets/Female.png')} />}
                             {character.gender === 'unknown' && <Image style = {Styles.genderImage} source = {require('../assets/unknown.png')} />}
                             
-                            <Text style = {Styles.text1}>{character.gender} </Text>
-                            <Text style = {Styles.text2}>{character.species}</Text>
+                            <Text style = {Styles.text}>{character.gender} </Text>
+                            <Text style = {Styles.text}>{character.species}</Text>
                             
-                            <TouchableOpacity onPress= {() => handlePressComment(character)}>
-                                <Text style = {Styles.buttonText}> Add Comment </Text>
+                            <TouchableOpacity style = {Styles.iconWrap} onPress= {() => handlePressComment(character)}>
+                                <Image 
+                                    style = {Styles.add_comment_icon} 
+                                    source = {require('../assets/add_comment.png')}
+                                />
                             </TouchableOpacity>
                             
-                            <TouchableOpacity>
-                                <Text style = {Styles.buttonText}> Show Comment </Text>
+                            <TouchableOpacity style = {Styles.iconWrap}>
+                                <Image 
+                                    style = {Styles.show_comment_icon} 
+                                    source = {require('../assets/show_comment.png')}
+                                />
                             </TouchableOpacity>
                             
                         </View>

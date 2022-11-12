@@ -52,7 +52,7 @@ export default function HomeScreen() {
             <SafeAreaView />
             <StatusBar  barStyle = "light-content"/>
             
-            <Topbar getFilteredCharacters = {getFilteredCharacters} />
+            <Topbar getFilteredCharacters = {getFilteredCharacters} filter = {true} />
             
             {data && (
                 <CharacterList

@@ -91,8 +91,8 @@ export default function CharacterSummary({ character, index, handlePress, favori
                             {character.gender === 'Male' && <Image style = {Styles.genderImage} source = {require('../assets/Male.png')} />}
                             {character.gender === 'Female' && <Image style = {Styles.genderImage} source = {require('../assets/Female.png')} />}
                             {character.gender === 'unknown' && <Image style = {Styles.genderImage} source = {require('../assets/unknown.png')} />}
-                            <Text style = {Styles.text1}>{character.gender} </Text>
-                            <Text style = {Styles.text2}>{character.species}</Text>
+                            <Text style = {Styles.text}>{character.gender} </Text>
+                            <Text style = {Styles.text}>{character.species}</Text>
                         </View>
                         
                         {character.type && <Text style = {Styles.type}>{character.type}</Text>}
