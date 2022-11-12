@@ -8,7 +8,13 @@ import CharacterSummary from './CharacterSummary';
 // Styles
 import { Styles } from '../styles/CharacterListStyles';
 
-export default function CharacterList({ data, handlePress, handleNextCharacters, addCharacterToFavorites, removeCharacterFromFavorites }) {
+// Redux 
+import { useDispatch, useSelector } from 'react-redux';
+import { useApi } from '../hooks/useApi';
+
+export default function CharacterList({ handlePress, addCharacterToFavorites, removeCharacterFromFavorites }) {
+    const characters = useSelector(state => state.characters.value.results)
+    const { getNextCharacters } = useApi();
     const scrollY = useRef(new Animated.Value(0)).current;
 
     const isFavorite = (item) => {
@@ -17,24 +23,24 @@ export default function CharacterList({ data, handlePress, handleNextCharacters,
 
     return (
         <View style = {Styles.container}>
-            {data && (
+            {characters && (
                 <Animated.FlatList 
-                    data = {data}
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                        {useNativeDriver: true}
-                    )   
-                    
+                    data = {characters}
+                    onScroll= {
+                        Animated.event(
+                            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                            {useNativeDriver: true}
+                        )
                     }
                     onEndReachedThreshold = {0.5}
-                    onEndReached = {handleNextCharacters} 
+                    onEndReached = {getNextCharacters} 
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle = {{ paddingBottom: 200 }}
                     renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} handlePress = {handlePress} addCharacterToFavorites = {addCharacterToFavorites} removeCharacterFromFavorites = {removeCharacterFromFavorites} favorite = {false} scrollY = {scrollY} />}
                 />
             )}
 
-            {!data && (
+            {!characters && (
                 <View style = {Styles.noResultados}>
                     <Image style = {Styles.imgMortyEnojado} source = {require('../assets/mortyEnojado.png')} />
                     <Image style = {Styles.imgNoResultados} source = {require('../assets/noResultados.jpg')} />

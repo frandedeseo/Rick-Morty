@@ -16,16 +16,15 @@ import { ref, remove, set } from 'firebase/database';
 
 // Styles
 import { Styles } from '../AppStyles';
-
-// Redux
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_characters } from '../redux/reducers/charactersSlice';
 
 export default function HomeScreen() {
     const [character, setCharacter] = useState({});
     const [modalVisible, setModalVisible] = useState(false);
-    const { getCharactersFromApi, getNextCharacters, getFilteredCharacters } = useApi();
-
-    const charactersData = useSelector(state => state.characters)
+    const charactersData = useSelector(state => state.characters.value);
+    const { getCharactersFromApi, getFilteredCharacters } = useApi();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         getCharactersFromApi();
@@ -61,9 +60,7 @@ export default function HomeScreen() {
             
             {charactersData && (
                 <CharacterList
-                    data = {charactersData.results}
                     handlePress = {handlePress}
-                    handleNextCharacters = {getNextCharacters}
                     addCharacterToFavorites = {addCharacterToFavorites}
                     removeCharacterFromFavorites = {removeCharacterFromFavorites}
                 />

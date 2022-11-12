@@ -15,8 +15,7 @@ import { store } from './redux/configStore';
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
-
+export default function App() { 
     return (
         <Provider store = {store}>
             <NavigationContainer>
