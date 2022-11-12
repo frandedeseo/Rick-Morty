@@ -10,16 +10,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Redux
-import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import dataReducer from './redux/reducers/dataSlice';
+import { store } from './redux/configStore';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-    const store = configureStore({ reducer: {
-        data: dataReducer 
-    }});
 
     return (
         <Provider store = {store}>
