@@ -1,14 +1,16 @@
 // React
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { get_characters } from '../redux/reducers/charactersSlice';
 
 export function useApi() {
-    const [data, setData] = useState(null);
+    const dispatch = useDispatch();
 
     const getCharactersFromApi = () => {
         return fetch('https://rickandmortyapi.com/api/character')
             .then((response) => response.json())
             .then((json) => {
-                setData(json);
+                dispatch(get_characters(json));
             })
             .catch((error) => {
                 console.log(error);
@@ -44,5 +46,5 @@ export function useApi() {
             })
     }
 
-    return { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters };
+    return { getCharactersFromApi, getNextCharacters, getFilteredCharacters };
 }
