@@ -9,34 +9,45 @@ import FavoritesScreen from './screens/FavoritesScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+// Redux
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import dataReducer from './redux/reducers/dataSlice';
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-    return (
-        <NavigationContainer>
-            <Tab.Navigator 
-                initialRouteName = 'home'
-                screenOptions = {({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
-                        if (route.name === 'home') {
-                            return focused ? 
-                                <Image style = {{ width: size, height: size }} source = {require('./assets/home.png')} /> 
-                                : <Image style = {{ width: size, height: size }} source = {require('./assets/home_unfocused.png')} />
-                        }
+    const store = configureStore({ reducer: {
+        data: dataReducer 
+    }});
 
-                        else if (route.name === 'favorites') {
-                            return focused ?
-                                <Image style = {{ width: size, height: size }} source = {require('./assets/favorites.png')} />
-                                : <Image style = {{ width: size, height: size }} source = {require('./assets/favorites_unfocused.png')} />
-                        }
-                    },
-                    tabBarActiveTintColor: 'black',
-                    tabBarInactiveTintColor: 'grey'                
-                })} 
-            >
-                <Tab.Screen name = 'home' component = {HomeScreen} options = {{ headerShown: false }} />
-                <Tab.Screen name = 'favorites' component = {FavoritesScreen} options = {{ headerShown: false }} />
-            </Tab.Navigator>
-        </NavigationContainer>
+    return (
+        <Provider store = {store}>
+            <NavigationContainer>
+                <Tab.Navigator 
+                    initialRouteName = 'home'
+                    screenOptions = {({ route }) => ({
+                        tabBarIcon: ({ focused, color, size }) => {
+                            if (route.name === 'home') {
+                                return focused ? 
+                                    <Image style = {{ width: size, height: size }} source = {require('./assets/home.png')} /> 
+                                    : <Image style = {{ width: size, height: size }} source = {require('./assets/home_unfocused.png')} />
+                            }
+
+                            else if (route.name === 'favorites') {
+                                return focused ?
+                                    <Image style = {{ width: size, height: size }} source = {require('./assets/favorites.png')} />
+                                    : <Image style = {{ width: size, height: size }} source = {require('./assets/favorites_unfocused.png')} />
+                            }
+                        },
+                        tabBarActiveTintColor: 'black',
+                        tabBarInactiveTintColor: 'grey'                
+                    })} 
+                >
+                    <Tab.Screen name = 'home' component = {HomeScreen} options = {{ headerShown: false }} />
+                    <Tab.Screen name = 'favorites' component = {FavoritesScreen} options = {{ headerShown: false }} />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 }
