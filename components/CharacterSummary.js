@@ -1,6 +1,9 @@
 // React
-import { View, Text, Image, TouchableOpacity, Animated, LayoutAnimation, UIManager} from 'react-native';
+import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { useState, useRef } from 'react';
+
+// Components
+import AnimatedHeart from '../components/AnimatedHeart';
 
 // Styles
 import { Styles } from '../styles/CharacterSummaryStyles';
@@ -11,9 +14,18 @@ const status = {
     "unknown": '#9e9e9e'
 }
 
+// function sleep(milliseconds) {
+//     const date = Date.now();
+//     let currentDate = null;
+//     do {
+//       currentDate = Date.now();
+//     } while (currentDate - date < milliseconds);
+//   }
+
 export default function CharacterSummary({ character, index, handlePress, favorite, scrollY, addCharacterToFavorites, removeCharacterFromFavorites }){
     
     const [isFavorite, setIsFavorite] = useState(favorite);
+    const [hearts, setHearts] = useState(false);
 
     const interpolacion = () => {
         var input;
@@ -25,8 +37,14 @@ export default function CharacterSummary({ character, index, handlePress, favori
         return input;
     }
     const pressHeart = () => {
+        heartAnimation();
         setIsFavorite(true);
         addCharacterToFavorites(character);
+    }
+
+    const heartAnimation = () => {
+        setHearts(true);
+        setTimeout(() => { setHearts(false) }, 1500);
     }
 
     const unpressHeart = () => {
@@ -82,6 +100,14 @@ export default function CharacterSummary({ character, index, handlePress, favori
                     </View>
                 </View>
             </TouchableOpacity>
+            {hearts == true && (
+                <>
+                <AnimatedHeart/>
+                <AnimatedHeart/>
+                <AnimatedHeart/>
+                <AnimatedHeart/>
+                </>
+            )}
         </Animated.View>
     );
 }
