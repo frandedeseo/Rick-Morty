@@ -71,7 +71,7 @@ export const Styles = StyleSheet.create({
     },
 
     icon: {
-        width: 15,
+        width: 16,
         height: 15,
     },
 

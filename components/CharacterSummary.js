@@ -8,6 +8,10 @@ import AnimatedHeart from '../components/AnimatedHeart';
 // Styles
 import { Styles } from '../styles/CharacterSummaryStyles';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { set_character } from '../redux/reducers/onlyCharacterSlice';
+import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
+
 const status = {
     "Alive": '#55cc44',
     "Dead": 'red',
@@ -22,10 +26,11 @@ const status = {
 //     } while (currentDate - date < milliseconds);
 //   }
 
-export default function CharacterSummary({ character, index, handlePress, favorite, scrollY, addCharacterToFavorites, removeCharacterFromFavorites }){
+export default function CharacterSummary({ character, index, favorite, scrollY, addCharacterToFavorites, removeCharacterFromFavorites }){
     
     const [isFavorite, setIsFavorite] = useState(favorite);
     const [hearts, setHearts] = useState(false);
+    const dispatch = useDispatch();
 
     const interpolacion = () => {
         var input;
@@ -40,6 +45,11 @@ export default function CharacterSummary({ character, index, handlePress, favori
         heartAnimation();
         setIsFavorite(true);
         addCharacterToFavorites(character);
+    }
+
+    const handlePress = () => {
+        dispatch(set_modal_visibility({visibility: true}));
+        dispatch(set_character(character));
     }
 
     const heartAnimation = () => {
@@ -64,7 +74,7 @@ export default function CharacterSummary({ character, index, handlePress, favori
 
     return (
         <Animated.View style= {[Styles.container, {opacity}, {transform: [{scale}]}]}>
-            <TouchableOpacity onPress = {() => handlePress(character)}>
+            <TouchableOpacity onPress = {() => handlePress()}>
                 <View style = {Styles.row}>
                     <Image style = {Styles.image} source = {{ uri: character.image }} />
                     

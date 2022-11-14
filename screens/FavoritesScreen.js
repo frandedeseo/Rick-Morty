@@ -15,8 +15,12 @@ import { ref, remove, onChildAdded, onChildRemoved } from "firebase/database";
 // Styles
 import { Styles } from '../AppStyles';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { get_favorite_characters, remove_favorite_character } from '../redux/reducers/favoriteCharactersSlice';
+
 export default function FavoritesScreen({ navigation }) {
-    const [data, setData] = useState([]);
+    const favoriteCharactersData = useSelector(state => state.favoriteCharacters.value);
+    const dispatch = useDispatch();
     const [character, setCharacter] = useState({});
     const [modalCharacter, setModalCharacter] = useState(false);
     const [modalComment, setModalComment] = useState(false);
@@ -25,11 +29,11 @@ export default function FavoritesScreen({ navigation }) {
         const charactersRef = ref(database, 'favoriteCharacters/');
 
         onChildAdded(charactersRef, (char) => {
-            setData(prevData => [...prevData, char.val().character]);
+            dispatch(get_favorite_characters([char]));
         })
 
         onChildRemoved(charactersRef, (char) => {
-            setData(prevData => prevData.filter(element => element.id !== char.val().character.id))
+            dispatch(remove_favorite_character(char));
         })
     }, [])
 
@@ -68,17 +72,17 @@ export default function FavoritesScreen({ navigation }) {
             
             <Topbar /> 
             
-            {data && (
+            {favoriteCharactersData && (
                 <FavoriteCharacterList
-                    data = {data}
                     handlePressCharacter = {handlePressCharacter}
                     handlePressIcon = {removeCharacter}
                     handlePressComment = {handlePressComment}
                 />
             )}
-            {data.length==0 && (
+
+            {/* {favoriteCharactersData.length==0 && (
                 <ActivityIndicator style={Styles.loading} size='large' color="#00ff00" />
-            )}
+            )} */}
 
             <Modal transparent visible = {modalCharacter} animationType = "slide">
                 <Character

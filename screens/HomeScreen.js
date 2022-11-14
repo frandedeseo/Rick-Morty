@@ -18,10 +18,10 @@ import { ref, remove, set } from 'firebase/database';
 import { Styles } from '../AppStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_characters } from '../redux/reducers/charactersSlice';
+import { set_character } from '../redux/reducers/onlyCharacterSlice';
 
 export default function HomeScreen() {
-    const [character, setCharacter] = useState({});
-    const [modalVisible, setModalVisible] = useState(false);
+    const modalVisible = useSelector(state => state.characterModal.value);
     const charactersData = useSelector(state => state.characters.value);
     const { getCharactersFromApi, getFilteredCharacters } = useApi();
     const dispatch = useDispatch();
@@ -29,16 +29,6 @@ export default function HomeScreen() {
     useEffect(() => {
         getCharactersFromApi();
     }, [])
-
-    const handlePress = (character) => {
-        setModalVisible(true);
-        setCharacter(character);
-    }
-
-    const handleClose = () => {
-        setModalVisible(false);
-        setCharacter({});
-    }
 
     const addCharacterToFavorites = (character) => {
         set(ref(database, 'favoriteCharacters/' + character.id), {
@@ -60,18 +50,16 @@ export default function HomeScreen() {
             
             {charactersData && (
                 <CharacterList
-                    handlePress = {handlePress}
                     addCharacterToFavorites = {addCharacterToFavorites}
                     removeCharacterFromFavorites = {removeCharacterFromFavorites}
                 />
             )}
 
-            <Modal transparent visible = {modalVisible} animationType = "slide">
-                <Character
-                    character = {character}
-                    handleClose = {handleClose}
-                />
+            {modalVisible && (
+            <Modal transparent visible = {modalVisible.visibility} animationType = "slide">
+                <Character />
             </Modal>
+            )}
         </View>
 
         {modalVisible && (

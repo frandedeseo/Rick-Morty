@@ -12,8 +12,8 @@ import { Styles } from '../styles/CharacterListStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useApi } from '../hooks/useApi';
 
-export default function CharacterList({ handlePress, addCharacterToFavorites, removeCharacterFromFavorites }) {
-    const characters = useSelector(state => state.characters.value.results)
+export default function CharacterList({ addCharacterToFavorites, removeCharacterFromFavorites }) {
+    const characters = useSelector(state => state.characters.value.results);
     const { getNextCharacters } = useApi();
     const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -36,7 +36,7 @@ export default function CharacterList({ handlePress, addCharacterToFavorites, re
                     onEndReached = {getNextCharacters} 
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} handlePress = {handlePress} addCharacterToFavorites = {addCharacterToFavorites} removeCharacterFromFavorites = {removeCharacterFromFavorites} favorite = {false} scrollY = {scrollY} />}
+                    renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} addCharacterToFavorites = {addCharacterToFavorites} removeCharacterFromFavorites = {removeCharacterFromFavorites} favorite = {false} scrollY = {scrollY} />}
                 />
             )}
 

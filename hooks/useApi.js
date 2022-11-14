@@ -11,6 +11,7 @@ export function useApi() {
             .then((response) => response.json())
             .then((json) => {
                 dispatch(get_characters(json));
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -34,10 +35,10 @@ export function useApi() {
         return fetch(`https://rickandmortyapi.com/api/character/?${parametros.input}&status=${parametros.status}&gender=${parametros.gender}`)
             .then((response) => response.json())
             .then((json) => {
-                setData(json);
+                dispatch(get_characters(json));
             })
             .catch((error) => {
-                setData({results: null});
+                dispatch({results: null});
             })
     }
 
