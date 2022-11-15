@@ -5,18 +5,26 @@ import { useState } from "react";
 //Styles
 import { Styles } from '../styles/CommentInputStyles';
 
-const CommentInput = ({ ocultarModal, addCommentToCharacter }) => {
-    
+// Redux
+import { useDispatch } from 'react-redux';
+import { set_character } from '../redux/reducers/onlyCharacterSlice';
+import { set_comment_modal_visibility } from '../redux/reducers/commentModalSlice';
+
+const CommentInput = () => {
     const [clicked, setClicked] = useState(false);
     const [textInput, setTextInput] = useState('');
+    const dispatch = useDispatch();
 
     const handleCancel = () => {
         setTextInput('');
-        ocultarModal();
+        dispatch(set_comment_modal_visibility(false));
+        dispatch(set_character({}));
+
     }
     const handleSubmit = () => {
-        ocultarModal();
-        addCommentToCharacter(textInput);
+        dispatch(set_comment_modal_visibility(false));
+        dispatch(set_character({}));
+        // Agregar comentario
     }
 
     return (
@@ -56,6 +64,7 @@ const CommentInput = ({ ocultarModal, addCommentToCharacter }) => {
             >
                 <Text style = {Styles.cancelButton}>Cancel</Text>
             </TouchableOpacity>
+            
             <TouchableOpacity onPress = {handleSubmit}>
                 <Image style = {Styles.sendIcon} source = {require('../assets/boton-enviar.png')} />
             </TouchableOpacity>

@@ -1,9 +1,14 @@
 // React
 import { View, Text, Image, TouchableOpacity, Animated, LayoutAnimation, UIManager} from 'react-native';
-import { useState, useRef } from 'react';
 
 // Styles
 import { Styles } from '../styles/CharacterSummaryStyles';
+
+// Redux
+import { useDispatch } from 'react-redux';
+import { set_character } from '../redux/reducers/onlyCharacterSlice';
+import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
+import { set_comment_modal_visibility } from '../redux/reducers/commentModalSlice';
 
 const status = {
     "Alive": '#55cc44',
@@ -32,8 +37,19 @@ const layoutAnimConfig = {
 
 
 //
-export default function FavoriteCharacterSummary({ character, index, scrollY, handlePressCharacter, handlePressIcon, handlePressComment }){
-    
+export default function FavoriteCharacterSummary({ character, index, scrollY, handlePressIcon }){
+    const dispatch = useDispatch();
+
+    const handlePress = () => {
+        dispatch(set_modal_visibility(true));
+        dispatch(set_character(character));
+    }
+
+    const handlePressComment = () => {
+        dispatch(set_comment_modal_visibility(true));
+        dispatch(set_character(character));
+    }
+
     const removeFromFavorite = () => { 
         LayoutAnimation.configureNext(layoutAnimConfig);
         handlePressIcon(character);
@@ -61,7 +77,7 @@ export default function FavoriteCharacterSummary({ character, index, scrollY, ha
 
     return (
         <Animated.View style= {[Styles.container, {opacity}, {transform: [{scale}]}]}>
-            <TouchableOpacity onPress = {() => handlePressCharacter(character)}>
+            <TouchableOpacity onPress = {() => handlePress()}>
                 <View style = {Styles.row}>
                     <Image style = {Styles.image} source = {{ uri: character.image }} />
                     

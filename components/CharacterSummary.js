@@ -8,9 +8,11 @@ import AnimatedHeart from '../components/AnimatedHeart';
 // Styles
 import { Styles } from '../styles/CharacterSummaryStyles';
 
-import { useDispatch, useSelector } from 'react-redux';
+// Redux
+import { useDispatch } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
+import { add_character_firebase } from '../redux/reducers/favoriteCharactersSlice';
 
 const status = {
     "Alive": '#55cc44',
@@ -18,16 +20,7 @@ const status = {
     "unknown": '#9e9e9e'
 }
 
-// function sleep(milliseconds) {
-//     const date = Date.now();
-//     let currentDate = null;
-//     do {
-//       currentDate = Date.now();
-//     } while (currentDate - date < milliseconds);
-//   }
-
 export default function CharacterSummary({ character, index, favorite, scrollY, addCharacterToFavorites, removeCharacterFromFavorites }){
-    
     const [isFavorite, setIsFavorite] = useState(favorite);
     const [hearts, setHearts] = useState(false);
     const dispatch = useDispatch();
@@ -41,14 +34,16 @@ export default function CharacterSummary({ character, index, favorite, scrollY, 
         }
         return input;
     }
+
     const pressHeart = () => {
         heartAnimation();
         setIsFavorite(true);
-        addCharacterToFavorites(character);
+        //addCharacterToFavorites(character);
+        dispatch(add_character_firebase(character))
     }
 
     const handlePress = () => {
-        dispatch(set_modal_visibility({visibility: true}));
+        dispatch(set_modal_visibility(true));
         dispatch(set_character(character));
     }
 
@@ -59,7 +54,7 @@ export default function CharacterSummary({ character, index, favorite, scrollY, 
 
     const unpressHeart = () => {
         setIsFavorite(false);
-        removeCharacterFromFavorites(character);
+        //removeCharacterFromFavorites(character);
     }
 
     const scale = scrollY.interpolate({

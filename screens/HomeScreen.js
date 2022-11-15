@@ -1,6 +1,6 @@
 // React
 import { StatusBar, View, Modal, SafeAreaView } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 // Components
 import CharacterList from '../components/CharacterList';
@@ -16,21 +16,20 @@ import { ref, remove, set } from 'firebase/database';
 
 // Styles
 import { Styles } from '../AppStyles';
-import { useDispatch, useSelector } from 'react-redux';
-import { get_characters } from '../redux/reducers/charactersSlice';
-import { set_character } from '../redux/reducers/onlyCharacterSlice';
+
+// Redux
+import { useSelector } from 'react-redux';
 
 export default function HomeScreen() {
     const modalVisible = useSelector(state => state.characterModal.value);
     const charactersData = useSelector(state => state.characters.value);
     const { getCharactersFromApi, getFilteredCharacters } = useApi();
-    const dispatch = useDispatch();
 
     useEffect(() => {
         getCharactersFromApi();
     }, [])
 
-    const addCharacterToFavorites = (character) => {
+    const addCharacterToFavorites = async (character) => {
         set(ref(database, 'favoriteCharacters/' + character.id), {
             character: character
         });
@@ -56,7 +55,7 @@ export default function HomeScreen() {
             )}
 
             {modalVisible && (
-            <Modal transparent visible = {modalVisible.visibility} animationType = "slide">
+            <Modal transparent visible = {modalVisible} animationType = "slide">
                 <Character />
             </Modal>
             )}

@@ -1,6 +1,6 @@
 // React
 import { StatusBar, View, Modal, SafeAreaView, ActivityIndicator } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 // Components
 import FavoriteCharacterList from '../components/FavoriteCharacterList';
@@ -18,47 +18,23 @@ import { Styles } from '../AppStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_favorite_characters, remove_favorite_character } from '../redux/reducers/favoriteCharactersSlice';
 
-export default function FavoritesScreen({ navigation }) {
+export default function FavoritesScreen() {
     const favoriteCharactersData = useSelector(state => state.favoriteCharacters.value);
+    const modalVisible = useSelector(state => state.characterModal.value);
+    const modalCommentVisible = useSelector(state => state.commentModal.value)
     const dispatch = useDispatch();
-    const [character, setCharacter] = useState({});
-    const [modalCharacter, setModalCharacter] = useState(false);
-    const [modalComment, setModalComment] = useState(false);
 
     useEffect(() => {
         const charactersRef = ref(database, 'favoriteCharacters/');
 
-        onChildAdded(charactersRef, (char) => {
-            dispatch(get_favorite_characters([char]));
-        })
+        // onChildAdded(charactersRef, (char) => {
+        //     dispatch(get_favorite_characters(char));
+        // })
 
         onChildRemoved(charactersRef, (char) => {
             dispatch(remove_favorite_character(char));
         })
     }, [])
-
-    const handlePressCharacter = (character) => {
-        setModalCharacter(true);
-        setCharacter(character);
-    }
-
-    const handleCloseCharacter = () => {
-        setModalCharacter(false);
-        setCharacter({});
-    }
-
-    const handlePressComment = (character) => {
-        setModalComment(true);
-        setCharacter(character);
-    }
-
-    const handleCloseComment = () => {
-        setModalComment(false);
-    }
-
-    const addCommentToCharacter = (text) => {
-
-    }
 
     const removeCharacter = (character) => {
         remove(ref(database, 'favoriteCharacters/' + character.id));
@@ -74,9 +50,7 @@ export default function FavoritesScreen({ navigation }) {
             
             {favoriteCharactersData && (
                 <FavoriteCharacterList
-                    handlePressCharacter = {handlePressCharacter}
                     handlePressIcon = {removeCharacter}
-                    handlePressComment = {handlePressComment}
                 />
             )}
 
@@ -84,20 +58,19 @@ export default function FavoritesScreen({ navigation }) {
                 <ActivityIndicator style={Styles.loading} size='large' color="#00ff00" />
             )} */}
 
-            <Modal transparent visible = {modalCharacter} animationType = "slide">
-                <Character
-                    character = {character}
-                    addCommentToCharacter = {addCommentToCharacter}
-                    handleClose = {handleCloseCharacter}
-                />
-            </Modal>
+            {modalVisible && (
+                <Modal transparent visible = {modalVisible} animationType = "slide">
+                    <Character
+                    />
+                </Modal>
+            )}
 
-            <Modal transparent visible = {modalComment} animationType = "slide">
-                <CommentInput ocultarModal={handleCloseComment} addCommentToCharacter={addCommentToCharacter}/>
+            <Modal transparent visible = {modalCommentVisible} animationType = "slide">
+                <CommentInput />
             </Modal>
         </View>
 
-        {(modalCharacter || modalComment) && (
+        {(modalVisible || modalCommentVisible) && (
             <View style = {Styles.blur} />
         )}
         </>

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const characterModalSlice = createSlice({
     name: 'characterModal',
-    initialState: {visibility: false},
+    initialState: { value: false },
     reducers: {
         set_modal_visibility: (state, action) => {
             state.value = action.payload;

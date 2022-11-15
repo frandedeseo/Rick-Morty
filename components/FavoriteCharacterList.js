@@ -1,5 +1,5 @@
 // React
-import { View, FlatList, Image, Animated } from 'react-native';
+import { View, Image, Animated } from 'react-native';
 import { useRef } from 'react';
 
 // Components
@@ -12,12 +12,10 @@ import { useApi } from '../hooks/useApi';
 import { Styles } from '../styles/CharacterListStyles';
 
 import { useDispatch, useSelector } from 'react-redux';
-//import { get_characters } from '../redux/reducers/charactersSlice';
 
-export default function FavoriteCharacterList({ handlePressCharacter, handlePressIcon, handlePressComment }) {
+export default function FavoriteCharacterList({ handlePressIcon, handlePressComment }) {
     const scrollY = useRef(new Animated.Value(0)).current;
-    const favoriteCharacters = useSelector(state => state.favoriteCharacters.value.results);
-    const { getNextCharacters } = useApi();
+    const favoriteCharacters = useSelector(state => state.favoriteCharacters.value);
 
     return (
         <View style = {Styles.container}>
@@ -30,11 +28,9 @@ export default function FavoriteCharacterList({ handlePressCharacter, handlePres
                     )   
                     
                     }
-                    onEndReachedThreshold = {0.5}
-                    onEndReached = {getNextCharacters} 
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <FavoriteCharacterSummary character = {item} index = {index}  scrollY = {scrollY} handlePressCharacter = {handlePressCharacter} handlePressIcon = {handlePressIcon} handlePressComment = {handlePressComment}/>}
+                    renderItem = {({ item, index }) => <FavoriteCharacterSummary character = {item} index = {index}  scrollY = {scrollY} handlePressIcon = {handlePressIcon} handlePressComment = {handlePressComment}/>}
                 />
             )}
 
