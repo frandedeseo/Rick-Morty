@@ -10,6 +10,11 @@ export const favoriteCharactersSlice = createSlice({
     name: 'favoriteCharacters',
     initialState,  
     reducers: {
+        get_characters: (state, action) => {
+            action.payload.results = [...state.value.results, action.payload];
+            state.value = action.payload;
+        },
+
         get_favorite_characters: {
             reducer: (state, action) => {
                 state.value.push(action.payload);
@@ -39,14 +44,9 @@ export const favoriteCharactersSlice = createSlice({
         },
         add_character_firebase: {
             reducer: (state, action) => {
-                // setDoc(doc(database, 'favoriteCharacters', action.payload.id), action.payload);
-                //console.log(action.payload)
-                console.log('hola')
-                set(ref(database, 'favoriteCharacters/1'), {
-                    //character: action.payload
-                    name: 'test'
+                set(ref(database, 'favoriteCharacters/' + action.payload.id), {
+                    character: action.payload
                 });
-                console.log('chau')
             },
             // prepare: (firebaseObject) => {
             //     const serializableObject = JSON.parse(JSON.stringify(firebaseObject));
@@ -65,5 +65,5 @@ export const favoriteCharactersSlice = createSlice({
     }
 });
 
-export const { get_favorite_characters, remove_favorite_character, add_character_firebase } = favoriteCharactersSlice.actions;
+export const { get_characters, get_favorite_characters, remove_favorite_character, add_character_firebase } = favoriteCharactersSlice.actions;
 export default favoriteCharactersSlice.reducer;

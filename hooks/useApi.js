@@ -10,6 +10,7 @@ export function useApi() {
         return fetch('https://rickandmortyapi.com/api/character')
             .then((response) => response.json())
             .then((json) => {
+                console.log(json);
                 dispatch(get_characters(json));
                 
             })

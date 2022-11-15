@@ -12,28 +12,25 @@ import { useApi } from '../hooks/useApi';
 
 // Firebase
 import { database } from '../firebase/config';
-import { ref, remove, set } from 'firebase/database';
+import { ref, remove, set, get, child } from 'firebase/database';
 
 // Styles
 import { Styles } from '../AppStyles';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { get_characters, get_favorite_characters, remove_favorite_character } from '../redux/reducers/favoriteCharactersSlice';
 
 export default function HomeScreen() {
     const modalVisible = useSelector(state => state.characterModal.value);
     const charactersData = useSelector(state => state.characters.value);
+    
+    const dispatch = useDispatch();
     const { getCharactersFromApi, getFilteredCharacters } = useApi();
 
     useEffect(() => {
         getCharactersFromApi();
     }, [])
-
-    const addCharacterToFavorites = async (character) => {
-        set(ref(database, 'favoriteCharacters/' + character.id), {
-            character: character
-        });
-    }
 
     const removeCharacterFromFavorites = (character) => {
         remove(ref(database, 'favoriteCharacters/' + character.id));
@@ -49,7 +46,6 @@ export default function HomeScreen() {
             
             {charactersData && (
                 <CharacterList
-                    addCharacterToFavorites = {addCharacterToFavorites}
                     removeCharacterFromFavorites = {removeCharacterFromFavorites}
                 />
             )}

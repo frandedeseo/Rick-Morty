@@ -9,7 +9,7 @@ import AnimatedHeart from '../components/AnimatedHeart';
 import { Styles } from '../styles/CharacterSummaryStyles';
 
 // Redux
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
 import { add_character_firebase } from '../redux/reducers/favoriteCharactersSlice';
@@ -20,9 +20,10 @@ const status = {
     "unknown": '#9e9e9e'
 }
 
-export default function CharacterSummary({ character, index, favorite, scrollY, addCharacterToFavorites, removeCharacterFromFavorites }){
+export default function CharacterSummary({ character, index, favorite, scrollY, removeCharacterFromFavorites }){
     const [isFavorite, setIsFavorite] = useState(favorite);
     const [hearts, setHearts] = useState(false);
+    const favoriteCharactersData = useSelector(state => state.favoriteCharacters);
     const dispatch = useDispatch();
 
     const interpolacion = () => {
@@ -38,12 +39,12 @@ export default function CharacterSummary({ character, index, favorite, scrollY, 
     const pressHeart = () => {
         heartAnimation();
         setIsFavorite(true);
-        //addCharacterToFavorites(character);
         dispatch(add_character_firebase(character))
     }
 
     const handlePress = () => {
         dispatch(set_modal_visibility(true));
+        console.log(favoriteCharactersData);
         dispatch(set_character(character));
     }
 
