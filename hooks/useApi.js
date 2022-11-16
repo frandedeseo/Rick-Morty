@@ -1,14 +1,17 @@
 // React
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_characters, get_next_characters } from '../redux/reducers/charactersSlice';
 
 export function useApi() {
-    const [data, setData] = useState(null);
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.characters.value);
 
     const getCharactersFromApi = () => {
         return fetch('https://rickandmortyapi.com/api/character')
             .then((response) => response.json())
             .then((json) => {
-                setData(json);
+                dispatch(get_characters(json));
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -19,12 +22,7 @@ export function useApi() {
         return fetch(data.info.next)
             .then((response) => response.json())
             .then((json) => {
-                setData(prevData => {
-                    let newData = json;
-                    newData.results = [...prevData.results, ...newData.results]
-                    
-                    return newData;
-                });
+                dispatch(get_next_characters(json))
             })
             .catch((error) => {
                 if (data.info.next != null){
@@ -37,12 +35,12 @@ export function useApi() {
         return fetch(`https://rickandmortyapi.com/api/character/?${parametros.input}&status=${parametros.status}&gender=${parametros.gender}`)
             .then((response) => response.json())
             .then((json) => {
-                setData(json);
+                dispatch(get_characters(json));
             })
             .catch((error) => {
-                setData({results: null});
+                dispatch({results: null});
             })
     }
 
-    return { data, getCharactersFromApi, getNextCharacters, getFilteredCharacters };
+    return { getCharactersFromApi, getNextCharacters, getFilteredCharacters };
 }

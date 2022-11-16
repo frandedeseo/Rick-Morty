@@ -3,9 +3,16 @@ import { StyleSheet } from 'react-native';
 
 export const Styles = StyleSheet.create({
     container: {
-        backgroundColor: '#3c3e44',
         margin: 6,
         borderRadius: 10,
+        borderRadius: 10,
+        backgroundColor: 'rgb(60, 62, 68)',
+        width: '95%',
+        elevation: 10,
+    },
+    moveLeft: {
+        position: 'absolute',
+        left: 100,
     },
 
     image: {
@@ -44,14 +51,9 @@ export const Styles = StyleSheet.create({
         fontSize: 20
     },
 
-    text1: {
+    text: {
         color: '#f5f5f5',
         fontSize: 15,
-    },
-    text2: {
-        color: '#f5f5f5',
-        fontSize: 15,
-        width: 150,
     },
 
     type: {
@@ -66,5 +68,26 @@ export const Styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         marginBottom: 10,
         marginTop: 5
+    },
+
+    icon: {
+        width: 16,
+        height: 15,
+    },
+
+    show_comment_icon: {
+        width: 20,
+        height: 20
+    },
+
+    add_comment_icon: {
+        width: 23,
+        height: 23
+    },
+
+    iconWrap: { 
+        justifyContent: 'center',
+        marginLeft: 'auto',
+        marginRight: '3%' 
     }
 })

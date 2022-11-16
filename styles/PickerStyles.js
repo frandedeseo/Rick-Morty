@@ -5,8 +5,9 @@ export const Styles = StyleSheet.create({
     row: {
         display: 'flex',
         flexDirection: 'row',
-        height: 24,
+        alignItems: "center",
         fontSize: 15,
+        height: 28,
     },
 
     botonDesplegable: {
@@ -14,8 +15,8 @@ export const Styles = StyleSheet.create({
     },
 
     moreIcon: {
-        width: 30, 
-        height: 24,
+        width: 30,
+        height: 26,
     },
 
     text: {
@@ -23,19 +24,22 @@ export const Styles = StyleSheet.create({
     },
     
     filterOptions: {
-        backgroundColor: 'white',
-        borderWidth: 1,
-        height: 26
+        backgroundColor: "#d9dbda",
+        height: 28
     },
 
     optionBox: {
-        backgroundColor: 'white',
+        backgroundColor: "#d9dbda",
+        borderRadius: 10,
     },
     
     opciones: {
         borderWidth: 1,
         paddingLeft: 5,
         fontSize: 15,
-        backgroundColor: 'white',
+        height: 30,
+        borderColor: 'white',
+        backgroundColor: "#d9dbda",
+        textAlignVertical: 'center'
     }
 });

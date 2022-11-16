@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export const Styles = StyleSheet.create({
     modalView: {
-        backgroundColor: "#3c3e44",
+        backgroundColor: 'rgb(60, 62, 68)',
         display: 'flex',
         justifyContent: 'space-between',
         marginHorizontal: '14%',
@@ -12,14 +12,16 @@ export const Styles = StyleSheet.create({
     },
 
     image: {
-        width: '100%',
+        width: '90%',
         height: '35%',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
+        alignSelf: 'center',
+        marginTop: 10,
+        borderRadius: 10,
+        elevation: 10
     },
 
     data: {
-        marginLeft: 10
+        marginLeft: 15
     },
 
     row: {
