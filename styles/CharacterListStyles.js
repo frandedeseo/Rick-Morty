@@ -25,4 +25,10 @@ export const Styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
     },
+    txtFavoritosVacio: {
+        fontSize: 18,
+        marginTop: '40%',
+        alignSelf: 'center',
+        color: 'white'
+    }
 })

@@ -9,42 +9,42 @@ import CharacterSummary from './CharacterSummary';
 import { Styles } from '../styles/CharacterListStyles';
 
 // Redux 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useApi } from '../hooks/useApi';
 
-export default function CharacterList({ addCharacterToFavorites, removeCharacterFromFavorites }) {
-    const characters = useSelector(state => state.characters.value.results);
+export default function CharacterList() {
+    const charactersData = useSelector(state => state.characters.value);
     const { getNextCharacters } = useApi();
     const scrollY = useRef(new Animated.Value(0)).current;
 
-    const isFavorite = (item) => {
-        //Consulta a firebase si esta en los favoritos el elemento
-    }
-
     return (
         <View style = {Styles.container}>
-            {characters && (
-                <Animated.FlatList 
-                    data = {characters}
-                    onScroll= {
-                        Animated.event(
-                            [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                            {useNativeDriver: true}
-                        )
-                    }
-                    onEndReachedThreshold = {0.5}
-                    onEndReached = {getNextCharacters} 
-                    keyExtractor={(item) => item.id.toString()}
-                    contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} addCharacterToFavorites = {addCharacterToFavorites} removeCharacterFromFavorites = {removeCharacterFromFavorites} favorite = {false} scrollY = {scrollY} />}
-                />
-            )}
+            {charactersData && (
+                <>
+                {charactersData.results && (
+                    <Animated.FlatList 
+                        data = {charactersData.results}
+                        onScroll= {
+                            Animated.event(
+                                [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                                {useNativeDriver: true}
+                            )
+                        }
+                        onEndReachedThreshold = {0.5}
+                        onEndReached = {getNextCharacters} 
+                        keyExtractor={(item) => item.id.toString()}
+                        contentContainerStyle = {{ paddingBottom: 200 }}
+                        renderItem = {({ item, index }) => <CharacterSummary character = {item} index = {index} scrollY = {scrollY} />}
+                    />
+                )}
 
-            {!characters && (
-                <View style = {Styles.noResultados}>
-                    <Image style = {Styles.imgMortyEnojado} source = {require('../assets/mortyEnojado.png')} />
-                    <Image style = {Styles.imgNoResultados} source = {require('../assets/noResultados.jpg')} />
-                </View>
+                {!charactersData.results && (
+                    <View style = {Styles.noResultados}>
+                        <Image style = {Styles.imgMortyEnojado} source = {require('../assets/mortyEnojado.png')} />
+                        <Image style = {Styles.imgNoResultados} source = {require('../assets/noResultados.jpg')} />
+                    </View>
+                )}
+                </>
             )}
         </View>
     );

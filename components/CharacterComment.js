@@ -4,8 +4,9 @@ import { Styles } from "../styles/CharacterCommentStyles";
 import { set_comment_modal_visibility } from "../redux/reducers/commentModalSlice";
 import { set_character } from "../redux/reducers/onlyCharacterSlice";
 
+
 export default function CharacterComment() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const character = useSelector(state => state.onlyCharacter.value);
 
     const handleClose = () => {
@@ -15,15 +16,15 @@ export default function CharacterComment() {
 
     return(
         <View style = {Styles.container}>
-            {console.log(character)}
-            {character.commentary && <Text>character.commentary</Text>}
-            {!character.commentary && <Text>No hay comentarios...</Text>}
-
-            <View>
-                <TouchableOpacity style = {Styles.button} onPress = {() => handleClose()}>
-                    <Text style = {Styles.buttonText}> Close </Text>
-                </TouchableOpacity>
+            <View style={Styles.textContainer}>
+                {character.commentary=='' && <Text style={Styles.text} >No hay comentarios...</Text>}
+                {character.commentary && <Text style={Styles.text} >{character.commentary}</Text>}
             </View>
+
+            <TouchableOpacity style = {Styles.button} onPress = {() => handleClose()}>
+                <Text style = {Styles.buttonText}> Close </Text>
+            </TouchableOpacity>
+            
         </View>
     )
 }

@@ -9,7 +9,11 @@ import { Styles } from '../styles/CommentInputStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_comment_input_modal_visibility } from '../redux/reducers/commentInputModalSlice';
-import { add_character_firebase } from "../redux/reducers/favoriteCharactersSlice";
+import { add_commentary_firebase } from "../redux/reducers/favoriteCharactersSlice";
+
+// Firebase
+import { database } from '../firebase/config';
+import { ref, set} from 'firebase/database';
 
 const CommentInput = () => {
     const [clicked, setClicked] = useState(false);
@@ -24,10 +28,17 @@ const CommentInput = () => {
 
     }
     const handleSubmit = () => {
-        dispatch(add_character_firebase({...character, commentary: textInput}))
+        addComment();
         dispatch(set_comment_input_modal_visibility(false));
         dispatch(set_character({}));
         setTextInput('');
+    }
+    const addComment = () => {
+        set(ref(database, 'favoriteCharacters/' + character.id), {
+            character: {...character, commentary: textInput}
+        });
+        dispatch(add_commentary_firebase({...character, commentary: textInput}));
+        
     }
 
     return (

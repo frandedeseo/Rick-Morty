@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Firebase
-import { database } from '../../firebase/config';
-import { set, ref } from 'firebase/database';
-
 const initialState = { value: [] };
 
 export const favoriteCharactersSlice = createSlice({
@@ -16,16 +12,10 @@ export const favoriteCharactersSlice = createSlice({
             },
             prepare: (firebaseObject) => {
                 const serializableObject = JSON.parse(JSON.stringify(firebaseObject)).character;
-                return { payload: { 
-                    id: serializableObject.id,
-                    name: serializableObject.name, 
-                    image: serializableObject.image, 
-                    status: serializableObject.status, 
-                    gender: serializableObject.gender, 
-                    species: serializableObject.species, 
-                    type: serializableObject.type,
-                    origin: serializableObject.origin
-                }}
+                if (serializableObject.commentary == null){
+                    serializableObject.commentary='';
+                }
+                return { payload: serializableObject }
             }
         },
         remove_favorite_character: {
@@ -37,18 +27,8 @@ export const favoriteCharactersSlice = createSlice({
                 return { payload: { id: serializableObject.id }}
             }
         },
-        add_character_firebase: {
-            reducer: (state, action) => {
-                set(ref(database, 'favoriteCharacters/' + action.payload.id), {
-                    character: action.payload
-                });
-            }
-        },
         add_commentary_firebase: {
             reducer: (state, action) => {
-                set(ref(database, 'favoriteCharacters/' + action.payload.id), {
-                    character: action.payload
-                });
                 state.value = state.value.map(element => {
                     if (element.id === action.payload.id) return action.payload;
                     return element;
@@ -58,5 +38,5 @@ export const favoriteCharactersSlice = createSlice({
     }
 });
 
-export const { get_characters, remove_favorite_character, add_character_firebase } = favoriteCharactersSlice.actions;
+export const { get_characters, remove_favorite_character, add_commentary_firebase } = favoriteCharactersSlice.actions;
 export default favoriteCharactersSlice.reducer;

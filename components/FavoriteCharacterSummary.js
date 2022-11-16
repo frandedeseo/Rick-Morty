@@ -5,11 +5,15 @@ import { View, Text, Image, TouchableOpacity, Animated, LayoutAnimation, UIManag
 import { Styles } from '../styles/CharacterSummaryStyles';
 
 // Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
 import { set_comment_modal_visibility } from '../redux/reducers/commentModalSlice';
 import { set_comment_input_modal_visibility } from '../redux/reducers/commentInputModalSlice';
+
+// Firebase
+import { database } from '../firebase/config';
+import { ref, remove } from "firebase/database";
 
 const status = {
     "Alive": '#55cc44',
@@ -36,10 +40,9 @@ const layoutAnimConfig = {
     },
 };
 
-
-//
-export default function FavoriteCharacterSummary({ character, index, scrollY, handlePressIcon }){
+export default function FavoriteCharacterSummary({ character, index, scrollY }){
     const dispatch = useDispatch();
+    const favoriteCharacter = useSelector(state => state.favoriteCharacters.value.filter((char)=> char.id==character.id)[0]);
 
     const handlePress = () => {
         dispatch(set_modal_visibility(true));
@@ -53,13 +56,18 @@ export default function FavoriteCharacterSummary({ character, index, scrollY, ha
 
     const handlePressComment = () => {
         dispatch(set_comment_modal_visibility(true));
-        dispatch(set_character(character));
+        console.log(favoriteCharacter);
+        dispatch(set_character(favoriteCharacter));
     }
 
     const removeFromFavorite = () => { 
         LayoutAnimation.configureNext(layoutAnimConfig);
-        handlePressIcon(character);
+        removeCharacter();
     };
+
+    const removeCharacter = () => {
+        remove(ref(database, 'favoriteCharacters/' + character.id));
+    }
 
     const interpolacion = () => {
         var input;
@@ -107,14 +115,14 @@ export default function FavoriteCharacterSummary({ character, index, scrollY, ha
                             <Text style = {Styles.text}>{character.gender} </Text>
                             <Text style = {Styles.text}>{character.species}</Text>
                             
-                            <TouchableOpacity style = {Styles.iconWrap} onPress= {() => handlePressCommentInput(character)}>
+                            <TouchableOpacity style = {Styles.iconWrap} onPress= {() => handlePressCommentInput()}>
                                 <Image 
                                     style = {Styles.add_comment_icon} 
                                     source = {require('../assets/add_comment.png')}
                                 />
                             </TouchableOpacity>
                             
-                            <TouchableOpacity style = {Styles.iconWrap} onPress = {() => handlePressComment(character)}>
+                            <TouchableOpacity style = {Styles.iconWrap} onPress = {() => handlePressComment()}>
                                 <Image 
                                     style = {Styles.show_comment_icon} 
                                     source = {require('../assets/show_comment.png')}

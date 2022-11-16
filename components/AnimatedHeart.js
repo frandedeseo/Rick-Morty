@@ -1,7 +1,10 @@
 // React
 import { Image, Animated } from 'react-native';
 import { useRef, useEffect } from 'react';
+
+//Styles
 import { Styles } from '../styles/AnimatedHeartStyles';
+
 const WINDOW_HEIGHT = 1000;
 const getRandomSignedNumber = () => (Math.random() < 0.5 ? -1 : 1);
 

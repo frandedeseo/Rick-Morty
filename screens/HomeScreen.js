@@ -10,31 +10,21 @@ import Topbar from '../components/Topbar';
 // Hooks
 import { useApi } from '../hooks/useApi';
 
-// Firebase
-import { database } from '../firebase/config';
-import { ref, remove } from 'firebase/database';
-
 // Styles
 import { Styles } from '../AppStyles';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { get_characters, get_favorite_characters, remove_favorite_character } from '../redux/reducers/favoriteCharactersSlice';
+import { useSelector } from 'react-redux';
+
 
 export default function HomeScreen() {
     const modalVisible = useSelector(state => state.characterModal.value);
-    const charactersData = useSelector(state => state.characters.value);
-    
-    const dispatch = useDispatch();
+
     const { getCharactersFromApi } = useApi();
 
     useEffect(() => {
         getCharactersFromApi();
     }, [])
-
-    const removeCharacterFromFavorites = (character) => {
-        remove(ref(database, 'favoriteCharacters/' + character.id));
-    }
 
     return (
         <>
@@ -44,11 +34,7 @@ export default function HomeScreen() {
             
             <Topbar filter = {true} />
             
-            {charactersData && (
-                <CharacterList
-                    removeCharacterFromFavorites = {removeCharacterFromFavorites}
-                />
-            )}
+            <CharacterList/>
 
             {modalVisible && (
             <Modal transparent visible = {modalVisible} animationType = "slide">

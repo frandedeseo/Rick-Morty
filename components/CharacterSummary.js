@@ -1,6 +1,6 @@
 // React
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 // Components
 import AnimatedHeart from '../components/AnimatedHeart';
@@ -9,10 +9,13 @@ import AnimatedHeart from '../components/AnimatedHeart';
 import { Styles } from '../styles/CharacterSummaryStyles';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
-import { add_character_firebase } from '../redux/reducers/favoriteCharactersSlice';
+
+// Firebase
+import { database } from '../firebase/config';
+import { ref, remove, set, onChildAdded, onChildRemoved } from 'firebase/database';
 
 const status = {
     "Alive": '#55cc44',
@@ -20,11 +23,26 @@ const status = {
     "unknown": '#9e9e9e'
 }
 
-export default function CharacterSummary({ character, index, favorite, scrollY, removeCharacterFromFavorites }){
-    const [isFavorite, setIsFavorite] = useState(favorite);
+export default function CharacterSummary({ character, index, scrollY }){
+    const [isFavorite, setIsFavorite] = useState(false);
     const [hearts, setHearts] = useState(false);
-    const favoriteCharactersData = useSelector(state => state.favoriteCharacters);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const charactersRef = ref(database, 'favoriteCharacters/');
+
+        onChildAdded(charactersRef, (char) => {
+            if (char.val().character.id==character.id){
+                setIsFavorite(true);
+            }
+        })
+
+        onChildRemoved(charactersRef, (char) => {
+            if (char.val().character.id==character.id){
+                setIsFavorite(false);
+            }
+        })
+    }, [])
 
     const interpolacion = () => {
         var input;
@@ -35,27 +53,33 @@ export default function CharacterSummary({ character, index, favorite, scrollY, 
         }
         return input;
     }
+    const removeCharacterFromFavorites = () => {
+        remove(ref(database, 'favoriteCharacters/' + character.id));
+    }
+
+    const addCharacterToFavorites = () => {
+        set(ref(database, 'favoriteCharacters/' + character.id), {
+            character: character
+        });
+    }
 
     const pressHeart = () => {
         heartAnimation();
-        setIsFavorite(true);
-        dispatch(add_character_firebase(character))
+        addCharacterToFavorites(character);
+    }
+
+    const unpressHeart = () => {
+        removeCharacterFromFavorites(character);
     }
 
     const handlePress = () => {
         dispatch(set_modal_visibility(true));
-        console.log(favoriteCharactersData);
         dispatch(set_character(character));
     }
 
     const heartAnimation = () => {
         setHearts(true);
         setTimeout(() => { setHearts(false) }, 1500);
-    }
-
-    const unpressHeart = () => {
-        setIsFavorite(false);
-        //removeCharacterFromFavorites(character);
     }
 
     const scale = scrollY.interpolate({

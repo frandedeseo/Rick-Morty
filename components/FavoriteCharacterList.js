@@ -1,43 +1,38 @@
 // React
-import { View, Image, Animated } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import { useRef } from 'react';
 
 // Components
 import FavoriteCharacterSummary from './FavoriteCharacterSummary';
 
-// Hooks
-import { useApi } from '../hooks/useApi';
-
 // Styles
 import { Styles } from '../styles/CharacterListStyles';
 
-import { useDispatch, useSelector } from 'react-redux';
+//Redux
+import { useSelector } from 'react-redux';
 
-export default function FavoriteCharacterList({ handlePressIcon, handlePressComment }) {
+export default function FavoriteCharacterList() {
     const scrollY = useRef(new Animated.Value(0)).current;
     const favoriteCharacters = useSelector(state => state.favoriteCharacters.value);
 
     return (
         <View style = {Styles.container}>
-            {favoriteCharacters && (
+            {favoriteCharacters.length != 0 && (
                 <Animated.FlatList 
                     data = {favoriteCharacters}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: scrollY}}}],
                         {useNativeDriver: true}
-                    )   
-                    
-                    }
+                    )}
                     keyExtractor={(item) => item.id.toString()}
                     contentContainerStyle = {{ paddingBottom: 200 }}
-                    renderItem = {({ item, index }) => <FavoriteCharacterSummary character = {item} index = {index}  scrollY = {scrollY} handlePressIcon = {handlePressIcon} handlePressComment = {handlePressComment}/>}
+                    renderItem = {({ item, index }) => <FavoriteCharacterSummary character = {item} index = {index}  scrollY = {scrollY} />}
                 />
             )}
 
-            {!favoriteCharacters && (
+            {favoriteCharacters.length == 0 && (
                 <View style = {Styles.noResultados}>
-                    <Image style = {Styles.imgMortyEnojado} source = {require('../assets/mortyEnojado.png')} />
-                    <Image style = {Styles.imgNoResultados} source = {require('../assets/noResultados.jpg')} />
+                    <Text style = {Styles.txtFavoritosVacio}>No se encuentran elementos en favoritos</Text>
                 </View>
             )}
 
