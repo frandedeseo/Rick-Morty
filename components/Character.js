@@ -15,10 +15,8 @@ const status = {
 }
 
 export default function Character() {
-
-    const dispatch = useDispatch();
-
     const character = useSelector(state => state.onlyCharacter.value);
+    const dispatch = useDispatch();
 
     const handleClose = () => {
         dispatch(set_modal_visibility(false));

@@ -1,6 +1,6 @@
 // React
-import { View, FlatList, TouchableOpacity, Image, Animated } from 'react-native';
-import { useRef, useState } from 'react';
+import { View, Image, Animated } from 'react-native';
+import { useRef } from 'react';
 
 // Components
 import CharacterSummary from './CharacterSummary';
@@ -14,8 +14,8 @@ import { useApi } from '../hooks/useApi';
 
 export default function CharacterList() {
     const charactersData = useSelector(state => state.characters.value);
-    const { getNextCharacters } = useApi();
     const scrollY = useRef(new Animated.Value(0)).current;
+    const { getNextCharacters } = useApi();
 
     return (
         <View style = {Styles.container}>

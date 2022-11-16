@@ -18,8 +18,8 @@ import { ref, set} from 'firebase/database';
 const CommentInput = () => {
     const [clicked, setClicked] = useState(false);
     const [textInput, setTextInput] = useState('');
-    const dispatch = useDispatch();
     const character = useSelector(state => state.onlyCharacter.value);
+    const dispatch = useDispatch();
 
     const handleCancel = () => {
         setTextInput('');

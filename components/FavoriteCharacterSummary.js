@@ -41,8 +41,8 @@ const layoutAnimConfig = {
 };
 
 export default function FavoriteCharacterSummary({ character, index, scrollY }){
-    const dispatch = useDispatch();
     const favoriteCharacter = useSelector(state => state.favoriteCharacters.value.filter((char)=> char.id==character.id)[0]);
+    const dispatch = useDispatch();
 
     const handlePress = () => {
         dispatch(set_modal_visibility(true));

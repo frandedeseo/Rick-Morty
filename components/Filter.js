@@ -1,5 +1,5 @@
 // React
-import { View, TextInput, TouchableOpacity, Image, Modal, Text, Animated } from 'react-native';
+import { View, TouchableOpacity, Image, Animated } from 'react-native';
 import { useState, useRef } from 'react';
 
 // Components
@@ -16,8 +16,9 @@ export default function Filter({ filterVisibility, setFilterVisibility }) {
     const [genderOption, setGenderOption] = useState('None');
     const [statusOption, setStatusOption] = useState('None');
     const [moreOptionsVisibility, setMoreOptionsVisibility] = useState(false);
-    const { getFilteredCharacters } = useApi();
+    
     const anim = useRef(new Animated.Value(0)).current;
+    const { getFilteredCharacters } = useApi();
 
     const handleSubmit = () => {
         getFilteredCharacters({ input: inputOption + '=' + textInput, gender: genderOption == 'None' ? '' : genderOption, status: statusOption == 'None' ? '' : statusOption })

@@ -6,8 +6,8 @@ import { set_character } from "../redux/reducers/onlyCharacterSlice";
 
 
 export default function CharacterComment() {
-    const dispatch = useDispatch();
     const character = useSelector(state => state.onlyCharacter.value);
+    const dispatch = useDispatch();
 
     const handleClose = () => {
         dispatch(set_comment_modal_visibility(false));

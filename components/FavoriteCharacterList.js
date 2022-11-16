@@ -12,8 +12,8 @@ import { Styles } from '../styles/CharacterListStyles';
 import { useSelector } from 'react-redux';
 
 export default function FavoriteCharacterList() {
-    const scrollY = useRef(new Animated.Value(0)).current;
     const favoriteCharacters = useSelector(state => state.favoriteCharacters.value);
+    const scrollY = useRef(new Animated.Value(0)).current;
 
     return (
         <View style = {Styles.container}>
