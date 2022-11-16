@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
 import { set_comment_modal_visibility } from '../redux/reducers/commentModalSlice';
+import { set_comment_input_modal_visibility } from '../redux/reducers/commentInputModalSlice';
 
 const status = {
     "Alive": '#55cc44',
@@ -42,6 +43,11 @@ export default function FavoriteCharacterSummary({ character, index, scrollY, ha
 
     const handlePress = () => {
         dispatch(set_modal_visibility(true));
+        dispatch(set_character(character));
+    }
+
+    const handlePressCommentInput = () => {
+        dispatch(set_comment_input_modal_visibility(true));
         dispatch(set_character(character));
     }
 
@@ -101,14 +107,14 @@ export default function FavoriteCharacterSummary({ character, index, scrollY, ha
                             <Text style = {Styles.text}>{character.gender} </Text>
                             <Text style = {Styles.text}>{character.species}</Text>
                             
-                            <TouchableOpacity style = {Styles.iconWrap} onPress= {() => handlePressComment(character)}>
+                            <TouchableOpacity style = {Styles.iconWrap} onPress= {() => handlePressCommentInput(character)}>
                                 <Image 
                                     style = {Styles.add_comment_icon} 
                                     source = {require('../assets/add_comment.png')}
                                 />
                             </TouchableOpacity>
                             
-                            <TouchableOpacity style = {Styles.iconWrap}>
+                            <TouchableOpacity style = {Styles.iconWrap} onPress = {() => handlePressComment(character)}>
                                 <Image 
                                     style = {Styles.show_comment_icon} 
                                     source = {require('../assets/show_comment.png')}

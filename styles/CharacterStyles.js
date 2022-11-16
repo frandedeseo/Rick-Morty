@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 
 export const Styles = StyleSheet.create({
     modalView: {
-        //backgroundColor: "rgb(64,44,56)",
         backgroundColor: 'rgb(60, 62, 68)',
         display: 'flex',
         justifyContent: 'space-between',

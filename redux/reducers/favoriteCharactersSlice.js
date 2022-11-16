@@ -10,12 +10,7 @@ export const favoriteCharactersSlice = createSlice({
     name: 'favoriteCharacters',
     initialState,  
     reducers: {
-        get_characters: (state, action) => {
-            action.payload.results = [...state.value.results, action.payload];
-            state.value = action.payload;
-        },
-
-        get_favorite_characters: {
+        get_characters: {
             reducer: (state, action) => {
                 state.value.push(action.payload);
             },
@@ -47,23 +42,21 @@ export const favoriteCharactersSlice = createSlice({
                 set(ref(database, 'favoriteCharacters/' + action.payload.id), {
                     character: action.payload
                 });
-            },
-            // prepare: (firebaseObject) => {
-            //     const serializableObject = JSON.parse(JSON.stringify(firebaseObject));
-            //     return { payload: { 
-            //         id: serializableObject.id,
-            //         name: serializableObject.name, 
-            //         image: serializableObject.image, 
-            //         status: serializableObject.status, 
-            //         gender: serializableObject.gender, 
-            //         species: serializableObject.species, 
-            //         type: serializableObject.type,
-            //         origin: serializableObject.origin
-            //     }}
-            // }
+            }
+        },
+        add_commentary_firebase: {
+            reducer: (state, action) => {
+                set(ref(database, 'favoriteCharacters/' + action.payload.id), {
+                    character: action.payload
+                });
+                state.value = state.value.map(element => {
+                    if (element.id === action.payload.id) return action.payload;
+                    return element;
+                })
+            }
         }
     }
 });
 
-export const { get_characters, get_favorite_characters, remove_favorite_character, add_character_firebase } = favoriteCharactersSlice.actions;
+export const { get_characters, remove_favorite_character, add_character_firebase } = favoriteCharactersSlice.actions;
 export default favoriteCharactersSlice.reducer;

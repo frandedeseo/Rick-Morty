@@ -8,7 +8,7 @@ import Filter from './Filter';
 // Styles
 import { Styles } from '../styles/TopbarStyles';
 
-export default function Topbar({ filter, getFilteredCharacters }) {
+export default function Topbar({ filter }) {
     const [filterVisibility, setFilterVisibility] = useState(false);
 
     return (
@@ -25,7 +25,7 @@ export default function Topbar({ filter, getFilteredCharacters }) {
                 )}
                 
                 {filterVisibility && (
-                    <Filter filterVisibility = {filterVisibility} setFilterVisibility = {setFilterVisibility} getFilteredCharacters = {getFilteredCharacters} />
+                    <Filter filterVisibility = {filterVisibility} setFilterVisibility = {setFilterVisibility} />
                 )}  
         </View>
     )

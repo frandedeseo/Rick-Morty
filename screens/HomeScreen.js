@@ -12,7 +12,7 @@ import { useApi } from '../hooks/useApi';
 
 // Firebase
 import { database } from '../firebase/config';
-import { ref, remove, set, get, child } from 'firebase/database';
+import { ref, remove } from 'firebase/database';
 
 // Styles
 import { Styles } from '../AppStyles';
@@ -26,7 +26,7 @@ export default function HomeScreen() {
     const charactersData = useSelector(state => state.characters.value);
     
     const dispatch = useDispatch();
-    const { getCharactersFromApi, getFilteredCharacters } = useApi();
+    const { getCharactersFromApi } = useApi();
 
     useEffect(() => {
         getCharactersFromApi();
@@ -42,7 +42,7 @@ export default function HomeScreen() {
             <SafeAreaView />
             <StatusBar  barStyle = "light-content"/>
             
-            <Topbar getFilteredCharacters = {getFilteredCharacters} filter = {true} />
+            <Topbar filter = {true} />
             
             {charactersData && (
                 <CharacterList

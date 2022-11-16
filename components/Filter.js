@@ -8,13 +8,15 @@ import Picker from './Picker';
 // Styles
 import { Styles } from '../styles/FilterStyles';
 import SearchBar from './SearchBar';
+import { useApi } from '../hooks/useApi';
  
-export default function Filter({ filterVisibility, setFilterVisibility, getFilteredCharacters }) {
+export default function Filter({ filterVisibility, setFilterVisibility }) {
     const [textInput, setTextInput] = useState('');
     const [inputOption, setInputOption] = useState('name');
     const [genderOption, setGenderOption] = useState('None');
     const [statusOption, setStatusOption] = useState('None');
     const [moreOptionsVisibility, setMoreOptionsVisibility] = useState(false);
+    const { getFilteredCharacters } = useApi();
     const anim = useRef(new Animated.Value(0)).current;
 
     const handleSubmit = () => {

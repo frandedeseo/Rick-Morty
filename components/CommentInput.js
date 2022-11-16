@@ -6,25 +6,28 @@ import { useState } from "react";
 import { Styles } from '../styles/CommentInputStyles';
 
 // Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
-import { set_comment_modal_visibility } from '../redux/reducers/commentModalSlice';
+import { set_comment_input_modal_visibility } from '../redux/reducers/commentInputModalSlice';
+import { add_character_firebase } from "../redux/reducers/favoriteCharactersSlice";
 
 const CommentInput = () => {
     const [clicked, setClicked] = useState(false);
     const [textInput, setTextInput] = useState('');
     const dispatch = useDispatch();
+    const character = useSelector(state => state.onlyCharacter.value);
 
     const handleCancel = () => {
         setTextInput('');
-        dispatch(set_comment_modal_visibility(false));
+        dispatch(set_comment_input_modal_visibility(false));
         dispatch(set_character({}));
 
     }
     const handleSubmit = () => {
-        dispatch(set_comment_modal_visibility(false));
+        dispatch(add_character_firebase({...character, commentary: textInput}))
+        dispatch(set_comment_input_modal_visibility(false));
         dispatch(set_character({}));
-        // Agregar comentario
+        setTextInput('');
     }
 
     return (

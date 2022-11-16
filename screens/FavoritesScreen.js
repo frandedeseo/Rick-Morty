@@ -10,46 +10,32 @@ import Topbar from '../components/Topbar';
 
 // Firebase
 import { database } from '../firebase/config';
-import { ref, remove, onChildAdded, onChildRemoved, get, child } from "firebase/database";
+import { ref, remove, onChildAdded, onChildRemoved } from "firebase/database";
 
 // Styles
 import { Styles } from '../AppStyles';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { get_characters, get_favorite_characters, remove_favorite_character } from '../redux/reducers/favoriteCharactersSlice';
+import { get_characters, remove_favorite_character } from '../redux/reducers/favoriteCharactersSlice';
+import CharacterComment from '../components/CharacterComment';
 
 export default function FavoritesScreen() {
-    const favoriteCharactersData = useSelector(state => state.favoriteCharacters);
+    const favoriteCharactersData = useSelector(state => state.favoriteCharacters.value);
     const modalVisible = useSelector(state => state.characterModal.value);
-    const modalCommentVisible = useSelector(state => state.commentModal);
+    const modalCommentInputVisible = useSelector(state => state.commentInputModal.value);
+    const modalCommentVisible = useSelector(state => state.commentModal.value);
     const dispatch = useDispatch();
 
     useEffect(() => {
         const charactersRef = ref(database, 'favoriteCharacters/');
 
-        // get(child(charactersRef, 'favoriteCharacters/'))
-        // .then((snapshot) => {
-        //     var characters = [];
-        //     snapshot.forEach(char => {
-                
-        //         var serializableObject = JSON.parse(JSON.stringify(char.val())).character;
-        //         if (serializableObject!=undefined){
-        //             characters.push(serializableObject);
-        //         }
-                
-        //     })
-        //     dispatch(get_characters(characters));
-        // })
         onChildAdded(charactersRef, (char) => {
-            var serializableObject = JSON.parse(JSON.stringify(char.val())).character;
-            console.log(serializableObject);
-             dispatch(get_characters(serializableObject));
-            
+            dispatch(get_characters(char));
         })
 
-        // onChildRemoved(charactersRef, (char) => {
-        //     dispatch(remove_favorite_character(char));
-        // })
+        onChildRemoved(charactersRef, (char) => {
+            dispatch(remove_favorite_character(char));
+        })
     }, [])
 
     const removeCharacter = (character) => {
@@ -70,23 +56,26 @@ export default function FavoritesScreen() {
                 />
             )}
 
-            {favoriteCharactersData.value==null && (
+            {favoriteCharactersData == null && (
                 <ActivityIndicator style={Styles.loading} size='large' color="#00ff00" />
             )} 
 
             {modalVisible && (
                 <Modal transparent visible = {modalVisible} animationType = "slide">
-                    <Character
-                    />
+                    <Character />
                 </Modal>
             )}
 
-            <Modal transparent visible = {false} animationType = "slide">
+            <Modal transparent visible = {modalCommentVisible} animationType = 'slide'>
+                <CharacterComment />
+            </Modal>
+
+            <Modal transparent visible = {modalCommentInputVisible} animationType = "slide">
                 <CommentInput />
             </Modal>
         </View>
 
-        {(modalVisible || false) && (
+        {(modalVisible || modalCommentInputVisible || modalCommentVisible) && (
             <View style = {Styles.blur} />
         )}
         </>
