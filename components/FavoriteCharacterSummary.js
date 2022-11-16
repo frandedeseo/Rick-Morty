@@ -56,7 +56,6 @@ export default function FavoriteCharacterSummary({ character, index, scrollY }){
 
     const handlePressComment = () => {
         dispatch(set_comment_modal_visibility(true));
-        console.log(favoriteCharacter);
         dispatch(set_character(favoriteCharacter));
     }
 
