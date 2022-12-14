@@ -10,7 +10,7 @@ import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
 import { set_comment_modal_visibility } from '../redux/reducers/commentModalSlice';
 import { set_comment_input_modal_visibility } from '../redux/reducers/commentInputModalSlice';
-import { add_to_history } from '../redux/reducers/historySlice';
+import { add_to_history } from '../redux/historySlice';
 
 // Firebase
 import { database } from '../firebase/config';
