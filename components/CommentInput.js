@@ -39,7 +39,7 @@ const CommentInput = () => {
             character: {...character, commentary: textInput}
         });
         dispatch(add_commentary_firebase({...character, commentary: textInput}));
-        dispatch(add_to_history('El personaje con id: ' +character.id + ' se le agregó el comentario: '+ textInput));
+        dispatch(add_to_history('A ' +character.name + ' se le agregó el comentario: '+ textInput));
         
     }
 

@@ -7,6 +7,8 @@ import { Styles } from '../styles/CharacterStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
+import { useEffect } from 'react';
+import { add_to_history } from '../redux/reducers/historySlice';
 
 const status = {
     "Alive": '#55cc44',
@@ -18,9 +20,14 @@ export default function Character() {
     const character = useSelector(state => state.onlyCharacter.value);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(add_to_history('Se abrieron los detalles de: ' +character.name ));
+    }, [])
+
     const handleClose = () => {
         dispatch(set_modal_visibility(false));
         dispatch(set_character({}));
+        dispatch(add_to_history('Se cerraron los detalles de: ' +character.name ));
     }
 
     return (

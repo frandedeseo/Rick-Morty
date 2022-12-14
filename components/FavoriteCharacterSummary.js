@@ -67,7 +67,7 @@ export default function FavoriteCharacterSummary({ character, index, scrollY }){
 
     const removeCharacter = () => {
         remove(ref(database, 'favoriteCharacters/' + character.id));
-        dispatch(add_to_history('El personaje con id: ' +character.id + ' fue removido de favoritos'));
+        dispatch(add_to_history(character.name + ' fue removido de favoritos'));
     }
 
     const interpolacion = () => {
