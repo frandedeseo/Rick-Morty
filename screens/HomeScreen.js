@@ -16,36 +16,37 @@ import { Styles } from '../AppStyles';
 // Redux
 import { useSelector } from 'react-redux';
 
-
 export default function HomeScreen() {
-    const modalVisible = useSelector(state => state.characterModal.value);
+    const modalVisible = useSelector((state) => state.characterModal.value);
 
     const { getCharactersFromApi } = useApi();
 
     useEffect(() => {
         getCharactersFromApi();
-    }, [])
+    }, []);
 
     return (
         <>
-        <View style = {Styles.container}>
-            <SafeAreaView />
-            <StatusBar  barStyle = "light-content"/>
-            
-            <Topbar filter = {true} />
-            
-            <CharacterList/>
+            <View style={Styles.container}>
+                <SafeAreaView />
+                <StatusBar barStyle='light-content' />
 
-            {modalVisible && (
-            <Modal transparent visible = {modalVisible} animationType = "slide">
-                <Character />
-            </Modal>
-            )}
-        </View>
+                <Topbar filter={true} />
 
-        {modalVisible && (
-            <View style = {Styles.blur} />
-        )}
+                <CharacterList />
+
+                {modalVisible && (
+                    <Modal
+                        transparent
+                        visible={modalVisible}
+                        animationType='slide'
+                    >
+                        <Character />
+                    </Modal>
+                )}
+            </View>
+
+            {modalVisible && <View style={Styles.blur} />}
         </>
-    )
+    );
 }
