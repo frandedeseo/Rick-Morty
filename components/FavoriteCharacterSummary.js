@@ -10,6 +10,7 @@ import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_modal_visibility } from '../redux/reducers/characterModalSlice';
 import { set_comment_modal_visibility } from '../redux/reducers/commentModalSlice';
 import { set_comment_input_modal_visibility } from '../redux/reducers/commentInputModalSlice';
+import { add_to_history } from '../redux/reducers/historySlice';
 
 // Firebase
 import { database } from '../firebase/config';
@@ -66,6 +67,7 @@ export default function FavoriteCharacterSummary({ character, index, scrollY }){
 
     const removeCharacter = () => {
         remove(ref(database, 'favoriteCharacters/' + character.id));
+        dispatch(add_to_history('El personaje con id: ' +character.id + ' fue removido de favoritos'));
     }
 
     const interpolacion = () => {

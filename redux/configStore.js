@@ -5,8 +5,10 @@ import characterModalReducer from "./reducers/characterModalSlice";
 import commentModalReducer from "./reducers/commentModalSlice";
 import favoriteCharactersReducer from "./reducers/favoriteCharactersSlice";
 import commentInputModalReducer from "./reducers/commentInputModalSlice";
+import historyReducer from "./reducers/historySlice";
 
 const rootReducer = combineReducers({
+    history: historyReducer,
     characters: charactersReducer,
     onlyCharacter: onlyCharacterReducer,
     characterModal: characterModalReducer,

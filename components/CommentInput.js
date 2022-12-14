@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { set_character } from '../redux/reducers/onlyCharacterSlice';
 import { set_comment_input_modal_visibility } from '../redux/reducers/commentInputModalSlice';
 import { add_commentary_firebase } from "../redux/reducers/favoriteCharactersSlice";
+import { add_to_history } from '../redux/reducers/historySlice';
 
 // Firebase
 import { database } from '../firebase/config';
@@ -38,6 +39,7 @@ const CommentInput = () => {
             character: {...character, commentary: textInput}
         });
         dispatch(add_commentary_firebase({...character, commentary: textInput}));
+        dispatch(add_to_history('El personaje con id: ' +character.id + ' se le agregó el comentario: '+ textInput));
         
     }
 

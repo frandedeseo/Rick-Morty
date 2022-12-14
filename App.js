@@ -4,6 +4,7 @@ import { Image } from 'react-native';
 // Screens
 import HomeScreen from './screens/HomeScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
+import HistoryScreen from './screens/HistoryScreen';
 
 // Tab Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -34,6 +35,9 @@ export default function App() {
                                     <Image style = {{ width: size, height: size }} source = {require('./assets/favorites.png')} />
                                     : <Image style = {{ width: size, height: size }} source = {require('./assets/favorites_unfocused.png')} />
                             }
+                            else if (route.name === 'history') {
+                                return (<Image style = {{ width: size, height: size }} source = {require('./assets/history.png')} />)
+                            }
                         },
                         tabBarActiveTintColor: 'black',
                         tabBarInactiveTintColor: 'grey'                
@@ -41,6 +45,7 @@ export default function App() {
                 >
                     <Tab.Screen name = 'home' component = {HomeScreen} options = {{ headerShown: false }} />
                     <Tab.Screen name = 'favorites' component = {FavoritesScreen} options = {{ headerShown: false }} />
+                    <Tab.Screen name = 'history' component = {HistoryScreen} options = {{ headerShown: false }} />
                 </Tab.Navigator>
             </NavigationContainer>
         </Provider>
